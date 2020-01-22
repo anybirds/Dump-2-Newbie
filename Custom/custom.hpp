@@ -1,7 +1,7 @@
 #ifndef CUSTOM_HPP
 #define CUSTOM_HPP
 
-#include "Custom_global.h"
+#include "custom_global.hpp"
 
 class CUSTOM_EXPORT Custom
 {

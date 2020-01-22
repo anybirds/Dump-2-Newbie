@@ -1,15 +1,18 @@
-cmake_minimum_required(VERSION 3.5)
-
 project(Engine LANGUAGES CXX)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+file(GLOB_RECURSE ENGINE_SOURCE "*.hpp" "*.cpp")
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ENGINE_SOURCE})
 
-add_library(Engine SHARED
-  Engine_global.h
-  engine.cpp
-  engine.h
+add_library(Engine SHARED ${ENGINE_SOURCE})
+
+target_include_directories(Engine
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_compile_definitions(Engine PRIVATE ENGINE_LIBRARY)
+
+set_target_properties(
+  Engine PROPERTIES
+  CXX_STANDARD 11
+  CXX_STANDARD_REQUIRED ON
+)

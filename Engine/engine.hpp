@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Engine_global.h"
+#include "engine_global.hpp"
 
 class ENGINE_EXPORT Engine
 {
