@@ -1,6 +1,6 @@
-#include <Core/Component.hpp>
-#include <Core/Object.hpp>
-#include <Core/World.hpp>
+#include <Common/Component.hpp>
+#include <Common/Object.hpp>
+#include <Common/World.hpp>
 
 using namespace Engine;
 

@@ -1,5 +1,11 @@
-#include <Script/RotateScript.hpp>
-#include <Engine.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <Common/Object.hpp>
+#include <Common/Time.hpp>
+#include <Common/Transform.hpp>
+
+#include <Scripts/RotateScript.hpp>
 
 using namespace glm;
 using namespace Engine;

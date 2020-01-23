@@ -1,5 +1,5 @@
-#include <Core/Script.hpp>
-#include <Core/World.hpp>
+#include <Common/Script.hpp>
+#include <Common/World.hpp>
 
 using namespace Engine;
 

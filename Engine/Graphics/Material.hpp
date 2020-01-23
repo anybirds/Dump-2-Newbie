@@ -6,7 +6,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include <Core/Resource.hpp>
+#include <Common/Resource.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -57,7 +59,7 @@ namespace Engine {
 	Automatically compiles given shaders and attach it to a program object, which gets linked right after.
 	Inherit this class to create a new material with additional properties.
 	 */
-	class Material : public Resource {
+    class ENGINE_EXPORT Material : public Resource {
 	private:
 		GLuint program;
 

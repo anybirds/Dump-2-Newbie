@@ -1,5 +1,6 @@
+#include <GL/glew.h>
+
 #include <Material/DefaultMaterial.hpp>
-#include <Engine.hpp>
 
 using namespace Engine;
 

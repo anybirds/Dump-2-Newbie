@@ -3,7 +3,9 @@
 #include <string>
 #include <typeinfo>
 
-#include <Core/Object.hpp>
+#include <Common/Object.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -16,7 +18,7 @@ namespace Engine {
 	Has every objects instantiated
 	Trigger events for components like Script and Renderer.
 	*/
-	class World final {
+    class ENGINE_EXPORT World final {
 	private:
 		static World world;
 

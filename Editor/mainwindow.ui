@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="TriangleWidget" name="openGLWidget"/>
+     <widget class="SceneWidget" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -34,9 +34,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TriangleWidget</class>
+   <class>SceneWidget</class>
    <extends>QOpenGLWidget</extends>
-   <header>trianglewidget.h</header>
+   <header>scenewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,9 +1,11 @@
 #pragma once
 
-#include <Core/Component.hpp>
-#include <Core/Script.hpp>
+#include <Common/Component.hpp>
+#include <Common/Script.hpp>
 
-class RotateScript : public Engine::Component, public Engine::Script {
+#include <custom_global.hpp>
+
+class CUSTOM_EXPORT RotateScript : public Engine::Component, public Engine::Script {
 private:
 	float rate;
 

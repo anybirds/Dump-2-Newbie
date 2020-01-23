@@ -1,9 +1,9 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include <Core/Debug.hpp>
-#include <Core/Object.hpp>
-#include <Core/World.hpp>
+#include <Common/Debug.hpp>
+#include <Common/Object.hpp>
+#include <Common/World.hpp>
 #include <Graphics/Camera.hpp>
 #include <Graphics/Material.hpp>
 #include <Graphics/Mesh.hpp>

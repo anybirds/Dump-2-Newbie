@@ -1,6 +1,8 @@
-#include <Core/Object.hpp>
-#include <Core/Script.hpp>
-#include <Core/World.hpp>
+#include <GL/glew.h>
+
+#include <Common/Object.hpp>
+#include <Common/Script.hpp>
+#include <Common/World.hpp>
 #include <Graphics/Renderer.hpp>
 
 using namespace std;
@@ -47,6 +49,9 @@ void World::Update() {
 }
 
 void World::Render() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	auto it = world.event_listener.find(typeid(Renderer).hash_code());
 	if (it == world.event_listener.end()) {
 		return;

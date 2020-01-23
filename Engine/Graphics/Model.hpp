@@ -6,9 +6,11 @@
 
 #include <Graphics/Mesh.hpp>
 
+#include <engine_global.hpp>
+
 namespace Engine {
 
-	class Model final {
+    class ENGINE_EXPORT Model final {
 	public:
 		/* Import a model and create all meshes it has */
 		static bool Import(const char *model_path);

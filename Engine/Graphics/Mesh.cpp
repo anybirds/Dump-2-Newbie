@@ -1,10 +1,13 @@
-#include <Core/Debug.hpp>
+#include <iostream>
+
+#include <Common/Debug.hpp>
 #include <Graphics/Mesh.hpp>
 
 #ifdef DEBUG_GRAPHICS
 #define DEBUG
 #endif
 
+using namespace std;
 using namespace Engine;
 
 Mesh::Mesh(const char *name, const float *vert, unsigned vcnt, const unsigned *attrib, unsigned acnt, const unsigned *idx, unsigned icnt) 

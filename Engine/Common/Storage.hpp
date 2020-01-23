@@ -4,6 +4,8 @@
 #include <typeinfo>
 #include <unordered_map>
 
+#include <engine_global.hpp>
+
 namespace Engine {
 
 	class Resource;
@@ -13,7 +15,7 @@ namespace Engine {
 
 	Has mappings to find all the resources currently loaded to the game.
 	*/
-	class Storage final {
+    class ENGINE_EXPORT Storage final {
 	private:
 		static Storage storage;
 

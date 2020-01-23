@@ -4,8 +4,9 @@
 #include <string>
 #include <typeinfo>
 
-#include <Core/Transform.hpp>
+#include <Common/Transform.hpp>
 
+#include <engine_global.hpp>
 namespace Engine {
 
 	class Component;
@@ -16,7 +17,7 @@ namespace Engine {
 	An abstraction of an object in the scene.
 	Has Components that can describe the object behavior.
 	 */
-	class Object final {
+    class ENGINE_EXPORT Object final {
 	private:
 		std::string name;
 		Transform transform;

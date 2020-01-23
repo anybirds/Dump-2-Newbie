@@ -2,7 +2,9 @@
 
 #include <GL/glew.h>
 
-#include <Core/Resource.hpp>
+#include <Common/Resource.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -14,7 +16,7 @@ namespace Engine {
 	Mesh object can consist points in 2D, 3D or whatever dimensional space, 
 	can have multiple attributes for each vertex and can represent indexed wireframe. 
 	*/
-	class Mesh final : public Resource {
+    class ENGINE_EXPORT Mesh final : public Resource {
 	private:
 		unsigned vcnt;
 		unsigned icnt;

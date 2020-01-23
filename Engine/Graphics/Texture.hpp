@@ -4,7 +4,9 @@
 
 #include <GL/glew.h>
 
-#include <Core/Resource.hpp>
+#include <Common/Resource.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -13,7 +15,7 @@ namespace Engine {
 	
 	Represents a texture that has been created by loading images.
 	*/
-	class Texture final : public Resource {
+    class ENGINE_EXPORT Texture final : public Resource {
 	private:
 		GLuint id;
 

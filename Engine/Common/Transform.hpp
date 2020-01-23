@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <engine_global.hpp>
+
 namespace Engine {	
 
 	/*
@@ -10,7 +12,7 @@ namespace Engine {
 
 	Object's position, rotation, scale and hierarchical parent information.
 	 */
-	class Transform final {
+    class ENGINE_EXPORT Transform final {
 	private:
 		glm::vec3 position;
 		glm::mat4 rotation;

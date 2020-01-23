@@ -2,7 +2,9 @@
 
 #include <glm/glm.hpp>
 
-#include <Core/Component.hpp>
+#include <Common/Component.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -13,7 +15,7 @@ namespace Engine {
 	Specify camera properties by directly manipulating the normalization matrix.
 	glm::perspective, glm::otrho can be used.
 	 */
-	class Camera final : public Component {
+    class ENGINE_EXPORT Camera final : public Component {
 	private:
 		static const Camera *current;
 

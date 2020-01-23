@@ -1,6 +1,8 @@
 #pragma once
 
-#include <Core/Component.hpp>
+#include <Common/Component.hpp>
+
+#include <engine_global.hpp>
 
 namespace Engine {
 
@@ -12,7 +14,7 @@ namespace Engine {
 
 	Responsible for rendering objects that have Mesh and Material.
 	*/
-	class Renderer final : public Component {
+    class ENGINE_EXPORT Renderer final : public Component {
 	private:
 		Mesh *mesh;
 		Material *material;

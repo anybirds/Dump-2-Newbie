@@ -1,4 +1,4 @@
-#include <Core/Debug.hpp>
+#include <Common/Debug.hpp>
 #include <Graphics/Camera.hpp>
 
 #ifdef DEBUG_GRAPHICS

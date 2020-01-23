@@ -1,5 +1,5 @@
-#include <Core/Resource.hpp>
-#include <Core/Storage.hpp>
+#include <Common/Resource.hpp>
+#include <Common/Storage.hpp>
 
 using namespace std;
 using namespace Engine;

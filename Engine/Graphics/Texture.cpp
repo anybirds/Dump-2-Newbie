@@ -1,12 +1,17 @@
+#include <iostream>
+
 #include <SOIL/SOIL.h>
 
-#include <Core/Debug.hpp>
+#include <iostream>
+
+#include <Common/Debug.hpp>
 #include <Graphics/Texture.hpp>
 
 #ifdef DEBUG_GRAPHICS
 #define DEBUG
 #endif
 
+using namespace std;
 using namespace Engine;
 
 Texture::Texture(const char *name, const char *texture_path) : Resource(name) {

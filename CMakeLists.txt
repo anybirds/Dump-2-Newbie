@@ -14,6 +14,7 @@ find_package(GLEW REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(Assimp REQUIRED)
 find_package(SOIL CONFIG REQUIRED)
+find_package(ZLIB REQUIRED)
 
 add_subdirectory(Engine)
 add_subdirectory(Custom)

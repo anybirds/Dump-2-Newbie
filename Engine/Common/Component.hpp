@@ -1,5 +1,7 @@
 #pragma once
 
+#include <engine_global.hpp>
+
 namespace Engine {
 
 	class Object;
@@ -9,7 +11,7 @@ namespace Engine {
 	
 	Base class for components that comprise an Object.
 	*/
-	class Component {
+    class ENGINE_EXPORT Component {
 	private:
 		Object *object;
 

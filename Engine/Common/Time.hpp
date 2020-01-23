@@ -1,12 +1,14 @@
 #pragma once
 
+#include <engine_global.hpp>
+
 namespace Engine {
 	/*
 	Time
 
 	Manages time by utilizing glfw functions.
 	*/
-	class Time final {
+    class ENGINE_EXPORT Time final {
 	private:
 		static Time time;
 

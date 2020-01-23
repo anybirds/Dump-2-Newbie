@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <engine_global.hpp>
+
 namespace Engine {
 
 	/*
@@ -9,7 +11,7 @@ namespace Engine {
 
 	Base class for all the resources such as Mateiral, Mesh, Model, Texture, etc.
 	*/
-	class Resource {
+    class ENGINE_EXPORT Resource {
 	private:
 		std::string name;
 

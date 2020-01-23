@@ -1,9 +1,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <Core/Debug.hpp>
-#include <Core/Transform.hpp>
+#include <Common/Debug.hpp>
+#include <Common/Transform.hpp>
 
-#ifdef DEBUG_CORE
+#ifdef DEBUG_Core
 #define DEBUG
 #endif
 

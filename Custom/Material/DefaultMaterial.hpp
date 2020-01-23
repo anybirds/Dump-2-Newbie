@@ -3,7 +3,9 @@
 #include <Graphics/Material.hpp>
 #include <Graphics/Texture.hpp>
 
-class DefaultMaterial final : public Engine::Material {
+#include <custom_global.hpp>
+
+class CUSTOM_EXPORT DefaultMaterial final : public Engine::Material {
 private:
 	Engine::Texture *texture;
 

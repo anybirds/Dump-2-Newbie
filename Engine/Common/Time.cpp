@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <Core/Time.hpp>
+#include <Common/Time.hpp>
 
 using namespace Engine;
 

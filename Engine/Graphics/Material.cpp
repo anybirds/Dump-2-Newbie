@@ -1,7 +1,8 @@
 #include <fstream>
+#include <iostream>
 #include <sstream>
 
-#include <Core/Debug.hpp>
+#include <Common/Debug.hpp>
 #include <Graphics/Material.hpp>
 
 #ifdef DEBUG_GRAPHICS

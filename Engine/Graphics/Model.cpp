@@ -1,6 +1,7 @@
+#include <iostream>
 #include <map>
 
-#include <Core/Debug.hpp>
+#include <Common/Debug.hpp>
 #include <Graphics/Model.hpp>
 
 #ifdef DEBUG_GRAPHICS
