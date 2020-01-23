@@ -5,6 +5,8 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${ENGINE_SOURCE})
 
 add_library(Engine SHARED ${ENGINE_SOURCE})
 
+target_link_libraries(Engine PUBLIC glfw GLEW::GLEW ${OPENGL_LIBRARY} glm)
+
 target_include_directories(Engine
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
