@@ -1,39 +1,27 @@
-#include <iostream>
+#include <Scene/Scene.hpp>
+#include <Engine.hpp>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <engine.hpp>
+#ifdef DEBUG_APPLICATION
+#define DEBUG
+#endif
 
 using namespace std;
+using namespace glm;
+using namespace Engine;
 
-int main()
-{
-    // glfw current context set
-    if (!glfwInit())
-    {
-        exit(1);
-    }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    GLFWwindow *window = glfwCreateWindow(1024, 768, "App", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
+int main(int argc, char **argv) {
+	Window window({ __FUNCTION__, 800, 600 }); // replace this code to Window::Init({});
 
-    // glew triangle set
-    Engine::prepareTriangle();
+	Scene scene; // replace this to Scene scene({""});
 
-    // draw triangle
-    while (!glfwWindowShouldClose(window)) {
-        Engine::drawTriangle();
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+	World::Start();
 
-    glfwTerminate();
-    return 0;
+	while (!window.Closed()) {
+		Time::Tick();
+
+		World::Update();
+		World::Render();
+		window.SwapBuffers();
+		glfwPollEvents(); // replace this to Input static function
+	}
 }
