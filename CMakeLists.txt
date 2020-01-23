@@ -19,3 +19,7 @@ add_subdirectory(Engine)
 add_subdirectory(Custom)
 add_subdirectory(App)
 add_subdirectory(Editor)
+
+add_dependencies(Custom Engine)
+add_dependencies(Editor Custom Engine)
+add_dependencies(App Custom Engine)

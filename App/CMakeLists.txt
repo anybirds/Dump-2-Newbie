@@ -8,11 +8,16 @@ add_executable(App ${APP_SOURCE})
 target_link_libraries(App PRIVATE Custom)
 
 target_include_directories(App
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 set_target_properties(
   App PROPERTIES
   CXX_STANDARD 11
   CXX_STANDARD_REQUIRED ON
+)
+
+add_custom_command(TARGET App POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Engine> $<TARGET_FILE_DIR:App>
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Custom> $<TARGET_FILE_DIR:App>
 )

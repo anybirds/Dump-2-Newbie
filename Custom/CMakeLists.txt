@@ -11,7 +11,7 @@ target_include_directories(Custom
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_compile_definitions(Engine PRIVATE ENGINE_LIBRARY)
+target_compile_definitions(Custom PRIVATE CUSTOM_LIBRARY)
 
 set_target_properties(
   Custom PROPERTIES
