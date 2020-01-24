@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MODEL_H
+#define MODEL
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -16,3 +17,5 @@ namespace Engine {
 		static bool Import(const char *model_path);
 	};
 }
+
+#endif

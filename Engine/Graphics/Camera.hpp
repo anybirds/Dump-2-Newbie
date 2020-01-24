@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <glm/glm.hpp>
 
@@ -34,3 +35,5 @@ namespace Engine {
 		Camera& SetNormalization(const glm::mat4 &normalization) { this->normalization = normalization; return *this; }
 	};
 }
+
+#endif

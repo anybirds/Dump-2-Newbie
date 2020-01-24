@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEFAULT_MATERIAL_H
+#define DEFAULT_MATERIAL_H
 
 #include <Graphics/Material.hpp>
 #include <Graphics/Texture.hpp>
@@ -16,3 +17,5 @@ public:
 	const Engine::Texture& GetTexture() { return *texture; }
 	DefaultMaterial& SetTexture(Engine::Texture &texture) { this->texture = &texture; return *this; }
 };
+
+#endif

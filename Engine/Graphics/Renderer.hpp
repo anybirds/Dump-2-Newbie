@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include <Common/Component.hpp>
 
@@ -31,3 +32,5 @@ namespace Engine {
 		void Render();
 	};
 }
+
+#endif

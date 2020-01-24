@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
 #include <string>
 
@@ -25,3 +26,5 @@ namespace Engine {
 		GLuint GetId() const { return id; }
 	};
 }
+
+#endif

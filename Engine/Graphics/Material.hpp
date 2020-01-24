@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MATERIAL_H
+#define MATERIAL_H
 
 #include <exception>
 #include <string>
@@ -72,3 +73,5 @@ namespace Engine {
 		friend class Renderer;
 	};
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COMPONENT_H
+#define COMPONENT_H
 
 #include <engine_global.hpp>
 
@@ -23,3 +24,5 @@ namespace Engine {
 		Engine::Object& GetObject() const { return *object; }
 	};
 }
+
+#endif

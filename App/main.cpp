@@ -13,7 +13,7 @@ using namespace glm;
 using namespace Engine;
 
 int main(int argc, char **argv) {
-	Window window({ __FUNCTION__, 800, 600 }); // replace this code to Window::Init({});
+    Window window("App"); // replace this code to Window::Init({});
 
     Scene scene; // replace this to Scene scene({""});
 
@@ -25,6 +25,6 @@ int main(int argc, char **argv) {
         World::Update();
         World::Render();
 		window.SwapBuffers();
-		glfwPollEvents(); // replace this to Input static function
+        window.PollEvents();
 	}
 }

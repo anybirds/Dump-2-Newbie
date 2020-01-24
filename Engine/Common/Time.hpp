@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIME_H
+#define TIME_H
 
 #include <engine_global.hpp>
 
@@ -30,3 +31,5 @@ namespace Engine {
 		~Time();
 	};
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ROTATE_SCRIPT_H
+#define ROTATE_SCRIPT_H
 
 #include <Common/Component.hpp>
 #include <Common/Script.hpp>
@@ -18,3 +19,5 @@ public:
 	float GetRate() { return rate; }
 	RotateScript& SetRate(float rate) { this->rate = rate; return *this; }
 };
+
+#endif

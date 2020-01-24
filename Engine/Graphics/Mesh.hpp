@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MESH_H
+#define MESH_H
 
 #include <GL/glew.h>
 
@@ -35,3 +36,5 @@ namespace Engine {
 		friend class Renderer;
 	};
 }
+
+#endif

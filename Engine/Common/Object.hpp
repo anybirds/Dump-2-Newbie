@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_H
+#define OBJECT_H
 
 #include <map>
 #include <string>
@@ -68,3 +69,4 @@ namespace Engine {
 	}
 }
 
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCRIPT_H
+#define SCRIPT_H
 
 #include <engine_global.hpp>
 
@@ -18,3 +19,5 @@ namespace Engine {
 		virtual void Update() = 0;
 	};
 }
+
+#endif

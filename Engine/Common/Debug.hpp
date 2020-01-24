@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DEBUG_H
+#define DEBUG_H
 
 /*
 DEBUG macros enable compile-time choice of logging messages.
@@ -20,3 +21,5 @@ Example
 #define DEBUG_GRAPHICS
 #define DEBUG_INTERACTION
 #define DEBUG_PHYSICS
+
+#endif

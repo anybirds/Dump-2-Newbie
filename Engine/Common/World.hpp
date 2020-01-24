@@ -1,3 +1,6 @@
+#ifndef WORLD_H
+#define WORLD_H
+
 #include <unordered_map>
 #include <set>
 #include <string>
@@ -73,3 +76,5 @@ namespace Engine {
 		it->second.erase((void*)&event_listener);
 	}
 }
+
+#endif

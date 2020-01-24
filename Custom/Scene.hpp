@@ -1,3 +1,6 @@
+#ifndef SCENE_H
+#define SCENE_H
+
 #include <custom_global.hpp>
 
 /*
@@ -12,3 +15,5 @@ public:
 	Scene(const char *name); // remove default constructor, implement this after serialization
 	~Scene();
 };
+
+#endif

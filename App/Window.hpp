@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include <string>
 
@@ -11,10 +12,6 @@ Window
 Abstraction of a cross-platform window that appears in the monitor.
  */
 class Window final {
-private:
-    static void glfwInit();
-    static void glfwTerminate();
-
 public:
     GLFWwindow *window;
     std::string name;
@@ -22,6 +19,7 @@ public:
     int height;
 
 public:
+    Window(const char *name);
     Window(const char *name, int width, int height);
     ~Window();
 
@@ -29,3 +27,5 @@ public:
     void SwapBuffers();
     void PollEvents();
 };
+
+#endif

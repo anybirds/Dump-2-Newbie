@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -44,3 +45,5 @@ namespace Engine {
 		glm::mat4 GetMatrix() const;
 	};
 }
+
+#endif

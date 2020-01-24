@@ -4,28 +4,29 @@
 
 using namespace std;
 
-void Window::glfwInit() {
-	::glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+Window::Window(const char *name) {
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-}
 
-void Window::glfwTerminate() {
-	::glfwTerminate();
+    // full-screen window
+    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+    width = mode->width;
+    height = mode->height;
+
+    window = glfwCreateWindow(width, height, name, NULL, NULL);
+    glfwMakeContextCurrent(window);
+    glfwMaximizeWindow(window);
 }
 
 Window::Window(const char *name, int width, int height) 
 	: name(name), width(width), height(height) {
-	Window::glfwInit();
-
-	if (!width && !height) {
-		// full-screen window
-		GLFWmonitor *monitor = glfwGetPrimaryMonitor();
-		const GLFWvidmode *mode = glfwGetVideoMode(monitor);
-		width = mode->width;
-		height = mode->height;
-	}
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	this->window = glfwCreateWindow(width, height, name, NULL, NULL);
 	glfwMakeContextCurrent(this->window);
@@ -41,4 +42,8 @@ bool Window::ShouldClose() {
 
 void Window::SwapBuffers() {
     glfwSwapBuffers(window);
+}
+
+void Window::PollEvents() {
+    glfwPollEvents();
 }

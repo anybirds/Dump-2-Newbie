@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RESOURCE_H
+#define RESOURCE_H
 
 #include <string>
 
@@ -23,3 +24,5 @@ namespace Engine {
 		Resource& SetName(const std::string &name) { this->name = name; return *this; }
 	};
 }
+
+#endif

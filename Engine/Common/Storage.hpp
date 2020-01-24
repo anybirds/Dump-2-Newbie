@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STORAGE_H
+#define STORAGE_H
 
 #include <string>
 #include <typeinfo>
@@ -62,3 +63,5 @@ namespace Engine {
 		return dynamic_cast<ResourceType*>(it->second);
 	}
 }
+
+#endif
