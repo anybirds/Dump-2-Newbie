@@ -11,7 +11,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${EDITOR_SOURCE})
 
 add_executable(Editor ${EDITOR_SOURCE})
 
-target_link_libraries(Editor PRIVATE Qt5::Widgets Custom)
+target_link_libraries(Editor PRIVATE Qt5::Widgets Scene)
 
 target_include_directories(Editor
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -31,6 +31,7 @@ add_custom_command(TARGET Editor POST_BUILD
 
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Engine> $<TARGET_FILE_DIR:Editor>
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Custom> $<TARGET_FILE_DIR:Editor>
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Scene> $<TARGET_FILE_DIR:Editor>
 )
 
 target_link_libraries(Editor PRIVATE Qt5::Widgets)
