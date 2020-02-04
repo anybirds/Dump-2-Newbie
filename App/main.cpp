@@ -1,12 +1,7 @@
-#include <Common/World.hpp>
 #include <Common/Time.hpp>
 
 #include <Window.hpp>
 #include <Scene.hpp>
-
-#ifdef DEBUG_APPLICATION
-#define DEBUG
-#endif
 
 using namespace std;
 using namespace glm;

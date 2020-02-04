@@ -1,8 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include <exception>
 #include <string>
+#include <unordered_map>
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -12,66 +12,43 @@
 #include <engine_global.hpp>
 
 namespace Engine {
+    class Shader;
+    class Texture;
+    class Renderer;
 
-	class ShaderCreationException final : public std::exception {
-	public:
-		const char *what() const noexcept {
-			return "[ShaderCreationException] Failed to create a new shader.";
-		}
-	};
+    class ENGINE_EXPORT Material final : public Resource {
+    private:
+        GLuint program;
+        Texture *main_texture;
 
-	class ShaderNotFoundException final : public std::exception {
-	private:
-		std::string msg;
-	public:
-		ShaderNotFoundException(const char *file_name) : msg("[ShaderNotFoundException] Failed to find a shader: ") {
-			msg += file_name;
-		}
+    public:
+        Material(const char *name, const Shader *vert_shader, const Shader *frag_shader);
+        ~Material();
 
-		const char *what() const noexcept {
-			return msg.c_str();
-		}
-	};
+        int GetInteger(const char *name) const;
+        std::vector<int> GetIntegerArray(const char *name) const;
+        float GetFloat(const char *name) const;
+        std::vector<float> GetFloatArray(const char *name) const;
+        glm::vec4 GetVector(const char *name) const;
+        std::vector<glm::vec4> GetVectorArray(const char *name) const;
+        glm::mat4 GetMatrix(const char *name) const;
+        std::vector<glm::mat4> GetMatrixArray(const char *name) const;
+        Texture* GetMainTexture() const { return main_texture; }
 
-	class ShaderCompilationException : public std::exception {
-	private:
-		std::string msg;
-	public:
-		ShaderCompilationException(GLuint shader) : msg("[ShaderCompilationException] Failed to Compile a shader:\n") {
-			GLint len;
-			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
-			GLchar *log = new GLchar[len + 1];
-			glGetShaderInfoLog(shader, len, NULL, log);
+        void SetInteger(const char *name, int value);
+        void SetIntegerArray(const char *name, const int *value, int length);
+        void SetFloat(const char *name, float value);
+        void SetFloatArray(const char *name, const float *value, int length);
+        void SetVector(const char *name, const glm::vec4 &value);
+        void SetVectorArray(const char *name, const glm::vec4 *value, int length);
+        void SetMatrix(const char *name, const glm::mat4 &value);
+        void SetMatrixArray(const char *name, const glm::mat4 *value, int length);
+        void SetMainTexture(Texture *texture) { main_texture = texture; }
 
-			msg += log;
+        void UseTextures();
 
-			delete[] log;
-		}
-
-		const char *what() const noexcept {
-			return msg.c_str();
-		}
-	};
-
-	/*
-	Material
-
-	Abstract class that defines how the objects are being drawn. 
-	Automatically compiles given shaders and attach it to a program object, which gets linked right after.
-	Inherit this class to create a new material with additional properties.
-	 */
-    class ENGINE_EXPORT Material : public Resource {
-	private:
-		GLuint program;
-
-		GLuint CompileShader(const char *path, GLenum type);
-	public:
-		Material(const char *name, const char *vert_path, const char *frag_path);
-		virtual ~Material();
-		virtual void Uniform() const = 0;
-
-		friend class Renderer;
-	};
+        friend class Renderer;
+    };
 }
 
 #endif

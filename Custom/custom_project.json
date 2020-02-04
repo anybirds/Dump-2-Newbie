@@ -1,0 +1,48 @@
+{
+    "Scene" : {
+        "bunny_scene" : {
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Scenes\\bunny_scene.json"
+        }
+    },
+    "Material" : {
+        "bunny_material" : {
+            "vertexShader" : "bunny_vert",
+            "fragmentShader" : "bunny_frag",
+            "mainTexture" : "bunny_tex"
+        }
+    },
+    "Mesh" : {
+        "square_mesh" : {
+            "model" : "square_model",
+            "index" : 0
+        },
+        "bunny_mesh" : {
+            "model" : "bunny_model",
+            "index" : 0
+        }
+    },
+    "Model" : {
+        "square_model" : {
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Models\\square_model.obj"
+        },
+        "bunny_model" : {
+            "path" : "C:\\Users\\river\\Documen{{ts\\Newbie\\Custom\\Models\\bunny_model.obj"
+        }
+    },
+    "Shader" : {
+        "bunny_vert" : {
+            "type" : "vertex",
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Shaders\\unlit_vert.glsl"
+        },
+        "bunny_frag" : {
+            "type" : "fragment",
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Shaders\\unlit_frag.glsl"
+        }
+    },
+
+    "Texture" : {
+        "bunny_tex" : {
+            "Path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Textures\\bunny_texture.png"
+        }
+    }
+}

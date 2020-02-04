@@ -1,15 +1,15 @@
 #version 330 core
 
-layout (location = 0) in vec3 vert_pos;
-layout (location = 2) in vec2 vert_uv;
+layout (location = 0) in vec3 _VERT_POS;
+layout (location = 2) in vec2 _VERT_UV;
 
-uniform mat4 model_transform;
-uniform mat4 camera_transform;
-uniform mat4 camera_normalization;
+uniform mat4 _MODEL;
+uniform mat4 _CAM;
+uniform mat4 _NORM;
 
-out vec2 frag_uv;
+out vec2 _FRAG_UV;
 
 void main() {
-    frag_uv = vert_uv;
-    gl_Position = camera_normalization * inverse(camera_transform) * model_transform * vec4(vert_pos, 1.0);
+    _FRAG_UV = _VERT_UV;
+    gl_Position = _NORM * inverse(_CAM) * _MODEL * vec4(_VERT_POS, 1.0);
 }

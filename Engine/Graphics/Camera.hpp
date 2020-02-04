@@ -9,30 +9,67 @@
 
 namespace Engine {
 
-	/*
-	Camera Component
+    SER_DECL(Camera)
 
-	Featured by its normalization matrix. 
-	Specify camera properties by directly manipulating the normalization matrix.
-	glm::perspective, glm::otrho can be used.
-	 */
+    /*
+    Featured by its normalization matrix.
+    Specify camera properties that affect the normalization matrix.
+    */
     class ENGINE_EXPORT Camera final : public Component {
-	private:
-		static const Camera *current;
+        TYPE_DECL(Camera)
+
+    public:
+        static Camera *GetMainCamera();
+        static void SetMainCamera(Camera *camera);
+
+    private:
+        glm::mat4 normalization;
+
+        bool orthographic;
+        float fovy;
+        float width;
+        float height;
+        float near;
+        float far;
+        float left;
+        float right;
+        float bottom;
+        float top;
 
 	public:
-		static const Camera* GetCurrentCamera() { return current; }
-		static void SetCurrentCamera(const Camera &current) { Camera::current = &current; }
+        Camera(const std::string &name, Type *type = &Camera::type);
+        virtual ~Camera();
 
-	private:
-		glm::mat4 normalization;
+        virtual void OnInit() override;
 
-	public:
-		Camera(Object *object, const glm::mat4 &normalization = glm::mat4(1.0f));
-		~Camera();
-		
-		glm::mat4 GetNormalization() const { return normalization; }
-		Camera& SetNormalization(const glm::mat4 &normalization) { this->normalization = normalization; return *this; }
+        void ComputeNormalization();
+
+        bool IsOrthographic() { return orthographic; }
+        bool IsPerspective() { return !orthographic; }
+        void SetOrthographic() { orthographic = true; ComputeNormalization(); }
+        void SetPerspective() { orthographic = false; ComputeNormalization(); }
+
+        GET(float, Fovy, fovy)
+        GET(float, Width, width)
+        GET(float, Height, height)
+        GET(float, Near, near)
+        GET(float, Far, far)
+        GET(float, Left, left)
+        GET(float, Right, right)
+        GET(float, Top, top)
+        GET(float, Bottom, bottom)
+
+        void SetFovy(float fovy);
+        void SetWidth(float width);
+        void SetHeight(float height);
+        void SetNear(float near);
+        void SetFar(float far);
+        void SetLeft(float left);
+        void SetRight(float right);
+        void SetTop(float top);
+        void SetBottom(float bottom);
+
+        void Render();
 	};
 }
 

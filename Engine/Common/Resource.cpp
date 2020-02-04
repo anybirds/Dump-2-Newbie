@@ -1,14 +1,29 @@
+#include <Common/Project.hpp>
 #include <Common/Resource.hpp>
-#include <Common/Storage.hpp>
 
 using namespace std;
 using namespace Engine;
 
-Resource::Resource(const char *name) : name(name) {
-	Storage::AddResource(*this); 
+namespace Engine {
+    TYPE_DEF(Resource)
+
+    TOJSON_BEGIN(Resource)
+    TOJSON_END
+
+    // hack used to initialize the resource only when loading Scene
+    void from_json(const json &js, Resource *&res) {
+        res->shouldLoad = Resource::sceneLoad;
+        std::string name = js.get<std::string>(); res = Engine::Find<Resource>(name);
+    }
+    void from_json(const json &js, Resource &res) { }
+}
+
+bool Resource::sceneLoad;
+
+Resource::Resource(const string &name, Type *type) : Object(name, type) {
+    Project::resset.insert(this);
 }
 
 Resource::~Resource() {
-	Storage::RemoveResource(*this);
+    Project::resset.erase(this);
 }
-

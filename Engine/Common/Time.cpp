@@ -5,18 +5,13 @@
 
 using namespace Engine;
 
-Time Time::time;
+void Time::Init() {
+    dt = 0.0;
+    prev = glfwGetTime();
+}
 
 void Time::Tick() {
 	double curr = glfwGetTime();
-	time.dt = curr - time.prev;
-	time.prev = curr;
-}
-
-Time::Time() {
-
-}
-
-Time::~Time() {
-
+    dt = curr - prev;
+    prev = curr;
 }

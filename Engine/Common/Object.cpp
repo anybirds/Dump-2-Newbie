@@ -1,17 +1,30 @@
-#include <Common/Component.hpp>
 #include <Common/Object.hpp>
-#include <Common/World.hpp>
 
+using namespace std;
 using namespace Engine;
 
-Object::Object(const char *name, const Transform &transform) : name(name), transform(transform) {
-	World::AddObject(*this);
+namespace Engine {
+    TYPE_DEF(Object)
+
+    TOJSON_BEGIN(Object)
+    TOJSON_END
+
+    FROMJSON_BEGIN(Object)
+    FROMJSON_END
+}
+
+unordered_map<Object *, Type *> Object::objs;
+unordered_map<string, Object *> Object::objmap;
+
+Object::Object(const string &name, Type *type) {
+    objs.insert({this, type});
+    objmap.insert({name, this});
 }
 
 Object::~Object() {
-	for (auto item : component) {
-		delete item.second;
-	}
+    // calling a virtual function in destructor does not invoke the derived class function
+    OnDestroy();
 
-	World::RemoveObject(*this);
+    objs.erase(this);
+    objmap.erase(name);
 }

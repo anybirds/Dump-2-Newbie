@@ -1,28 +1,28 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <Common/Object.hpp>
+
 #include <engine_global.hpp>
 
 namespace Engine {
 
-	class Object;
+    class GameObject;
 
-	/*
-	Component
-	
-	Base class for components that comprise an Object.
-	*/
-    class ENGINE_EXPORT Component {
-	private:
-		Object *object;
+    SER_DECL(Component)
 
-	public:
+    /*
+    Base class for components that comprise a GameObject.
+    */
+    class ENGINE_EXPORT Component : public Object {
+        TYPE_DECL(Component)
 
-		Component(Object *object);
-		virtual ~Component();
+        PROPERTY_GET(GameObject *, GameObject, gameObject)
 
-		Engine::Object& GetObject() const { return *object; }
-	};
+    public:
+        Component(const std::string &name, Type *type = &Component::type);
+        virtual ~Component();
+    };
 }
 
 #endif

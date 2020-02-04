@@ -17,7 +17,7 @@ Example
 #endif
 */
 
-#define DEBUG_Core
+#define DEBUG_COMMON
 #define DEBUG_GRAPHICS
 #define DEBUG_INTERACTION
 #define DEBUG_PHYSICS

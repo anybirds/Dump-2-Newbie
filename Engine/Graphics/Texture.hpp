@@ -22,8 +22,9 @@ namespace Engine {
 
 	public:
 		Texture(const char *name, const char *texture_path);
-		~Texture();
-		GLuint GetId() const { return id; }
+        ~Texture();
+
+        friend class Material;
 	};
 }
 

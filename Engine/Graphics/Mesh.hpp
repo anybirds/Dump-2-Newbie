@@ -27,7 +27,6 @@ namespace Engine {
 		GLuint ebo;
 		
 	public:
-
 		/* acquires resources(VAO, VBO, EBO) needed to generate a mesh for a model */
 		Mesh(const char *name, const float *vert, unsigned vcnt, const unsigned *attrib, unsigned acnt, const unsigned *idx = nullptr, unsigned icnt = 0);
 		Mesh(const char *name, const char *model_path, unsigned midx = 0);

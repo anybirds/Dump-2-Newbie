@@ -1,72 +1,81 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <map>
 #include <string>
-#include <typeinfo>
+#include <unordered_map>
 
-#include <Common/Transform.hpp>
-
+#include <Common/Type.hpp>
 #include <engine_global.hpp>
+
 namespace Engine {
 
-	class Component;
+    class Project;
 
-	/*
-	Object
+    SER_DECL(Object)
 
-	An abstraction of an object in the scene.
-	Has Components that can describe the object behavior.
-	 */
-    class ENGINE_EXPORT Object final {
-	private:
-		std::string name;
-		Transform transform;
-		std::map<size_t, Component*> component; // <hash_code, Component>
+    /*
+    Base class for all serializeable objects.
+    */
+    class ENGINE_EXPORT Object {
+        TYPE_DECL(Object)
 
-	public:
-		Object(const char *name, const Transform &transform);
-		~Object();
+    private:
+        static std::unordered_map<Object *, Type *> objs;
+        static std::unordered_map<std::string, Object *> objmap;
 
-		template <typename ComponentType>
-		ComponentType* GetComponent();
-		template <typename ComponentType>
-		ComponentType* AddComponent();
-		template <typename ComponentType>
-		Object& RemoveComponent();
+    private:
+        std::string name;
 
-		const std::string& GetName() const { return name; }
-		Object& SetName(const std::string& name) { this->name = name; return *this; }
-		Engine::Transform& GetTransform() { return transform; }
-		const Engine::Transform& GetTransform() const { return transform; }
-		Object& SetTransform(const Engine::Transform &transform) { this->transform = transform; return *this; }
-	};
+    public:
+        Object(const std::string &name, Type *type = &Object::type);
+        virtual ~Object();
 
-	template <typename ComponentType>
-	ComponentType* Object::GetComponent() {
-		size_t key = typeid(ComponentType).hash_code();
-		auto it = component.find(key);
-		if (it == component.end()) {
-			return nullptr;
-		}
-		return dynamic_cast<ComponentType*>(it->second);
-	}
+        std::string const &GetName() const { return name; }
+        bool SetName(std::string const &name) {
+            auto it = objmap.find(name);
+            if (it != objmap.end()) {
+                return false;
+            }
+            objmap.erase(GetName());
+            objmap.insert({name, this});
+            this->name = name;
+            return true;
+        }
 
-	template <typename ComponentType>
-	ComponentType* Object::AddComponent() {
-		size_t key = typeid(ComponentType).hash_code();
-		ComponentType *value = new ComponentType(this);
-		this->component.insert({ key, value });
-		return value;
-	}
+        // Load and Unload should be considered as pure virtual functions
+        virtual void OnInit() { }
+        virtual void OnDestroy() { }
 
-	template <typename ComponentType>
-	Object& Object::RemoveComponent() {
-		size_t key = typeid(ComponentType).hash_code();
-		delete component[key];
-		component.erase(key);
-		return *this;
-	}
+        friend bool IsValid(Object *);
+        friend Type *GetType(Object *);
+        template <typename T> friend T *Find(const std::string &);
+        friend class Project;
+    };
+
+    bool IsValid(Object *obj) {
+        auto it = Object::objs.find(obj);
+        if (it == Object::objs.end()) {
+            return false;
+        }
+        return true;
+    }
+
+    Type *GetType(Object *obj) {
+        auto it = Object::objs.find(obj);
+        if (it == Object::objs.end()) {
+            return nullptr;
+        }
+        return it->second;
+    }
+
+    template <typename T>
+    T *Find(const std::string &name) {
+        auto it = Object::objmap.find(name);
+        if (it == Object::objmap.end()) {
+            return nullptr;
+        }
+        return dynamic_cast<T *>(it->second);
+    }
 }
 
 #endif

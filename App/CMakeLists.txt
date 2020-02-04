@@ -5,7 +5,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${APP_SOURCE})
 
 add_executable(App ${APP_SOURCE})
 
-target_link_libraries(App PRIVATE Scene)
+target_link_libraries(App PRIVATE Custom)
 
 target_include_directories(App
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -25,5 +25,4 @@ add_custom_command(TARGET App POST_BUILD
 
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Engine> $<TARGET_FILE_DIR:App>
     COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Custom> $<TARGET_FILE_DIR:App>
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:Scene> $<TARGET_FILE_DIR:App>
 )
