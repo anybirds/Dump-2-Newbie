@@ -5,7 +5,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${APP_SOURCE})
 
 add_executable(App ${APP_SOURCE})
 
-target_link_libraries(App PRIVATE Custom)
+target_link_libraries(App PRIVATE Engine)
 
 target_include_directories(App
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}

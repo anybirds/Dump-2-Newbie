@@ -13,7 +13,7 @@ namespace Engine {
     class Component;
     class Camera;
 
-    SER_DECL(SceneSetting)
+    SER_DECL(ENGINE_EXPORT, SceneSetting)
 
     class ENGINE_EXPORT SceneSetting final : public Object {
         TYPE_DECL(SceneSetting)
@@ -25,7 +25,7 @@ namespace Engine {
         virtual ~SceneSetting();
     };
 
-    SER_DECL(Scene)
+    SER_DECL(ENGINE_EXPORT, Scene)
 
     /*
     Tracks objects and components that comprise the scene.

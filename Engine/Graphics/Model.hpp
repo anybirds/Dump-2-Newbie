@@ -11,7 +11,7 @@
 
 namespace Engine {
 
-    SER_DECL(Model)
+    SER_DECL(ENGINE_EXPORT, Model)
 
     class ENGINE_EXPORT Model final : public Resource {
         TYPE_DECL(Model)

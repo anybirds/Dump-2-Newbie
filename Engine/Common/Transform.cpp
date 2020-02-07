@@ -104,5 +104,7 @@ void Transform::SetScale(const glm::vec3 &scale) {
     PropagateUpdate();
 }
 
-
+void Transform::Rotate(const glm::vec3 &eulerAngles) {
+    SetLocalEulerAngles(localEulerAngles + eulerAngles);
+}
 

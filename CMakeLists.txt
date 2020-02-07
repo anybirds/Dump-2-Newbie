@@ -23,5 +23,5 @@ add_subdirectory(App)
 add_subdirectory(Editor)
 
 add_dependencies(Custom Engine)
-add_dependencies(Editor Custom Engine)
-add_dependencies(App Custom Engine)
+add_dependencies(Editor Engine)
+add_dependencies(App Engine)

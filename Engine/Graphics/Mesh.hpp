@@ -11,7 +11,7 @@ namespace Engine {
 
     class Model;
 
-    SER_DECL(Mesh)
+    SER_DECL(ENGINE_EXPORT, Mesh)
 
     /*
 	Represents a wireframe that exists in the object space. 

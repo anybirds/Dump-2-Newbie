@@ -7,7 +7,7 @@
 
 namespace Engine {
 
-    SER_DECL(Resource)
+    SER_DECL(ENGINE_EXPORT, Resource)
 
     /*
     Base class for all the resources like Model, Mesh, Material, Shader, Texture and etc.

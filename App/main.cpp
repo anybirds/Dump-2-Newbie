@@ -1,3 +1,5 @@
+#include <Windows.h>
+
 #include <Engine.hpp>
 #include <Window.hpp>
 
@@ -5,29 +7,35 @@ using namespace std;
 using namespace glm;
 using namespace Engine;
 
-template <template <typename ...> class List, typename T, typename ...Types>
-void TypeInit();
-
-template <typename T, typename ...Types>
-inline void TypeInit(TypeList<T, Types...>) {
-    T::type = new Type(T::typeName, T::Instantiate, T::Serialize, T::Deserialize);
-    TypeInit(TypeList<Types...>());
-}
-
-template <typename T>
-inline void TypeInit(TypeList<T>) {
-    T::type = new Type(T::typeName, T::Instantiate, T::Serialize, T::Deserialize);
-}
-
 int main(int argc, char **argv) {
-    TypeInit(TYPE_LIST());
+    HINSTANCE hCustom = LoadLibrary(".\\Custom.dll");
+    if (!hCustom) {
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " failed to load the custom library." << endl;
+#endif
+        return EXIT_FAILURE;
+    }
+
+    typedef void (*Func)();
+    Func TypeInit = reinterpret_cast<Func>(GetProcAddress(hCustom, "TypeInit"));
+    if (!TypeInit) {
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " failed to locate TypeInit function in the custom library." << endl;
+#endif
+        return EXIT_FAILURE;
+    }
+    TypeInit();
 
     Window window("App");
     Project::Load("C:\\Users\\river\\Documents\\Newbie\\Custom\\custom_project.json");
     Scene::Load("bunny_scene");
 
+    Script::Start();
+
     while (!window.ShouldClose()) {
         Time::Tick();
+
+        Script::Update();
 
         Camera::GetMainCamera()->Render();
 

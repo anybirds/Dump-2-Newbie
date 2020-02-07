@@ -10,7 +10,7 @@ namespace Engine {
 	class Material;
 	class Mesh;
 
-    SER_DECL(Renderer)
+    SER_DECL(ENGINE_EXPORT, Renderer)
 
 	/*
 	Renderer Component

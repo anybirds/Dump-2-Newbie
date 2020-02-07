@@ -7,6 +7,7 @@
 #include <Common/Project.hpp>
 #include <Common/Resource.hpp>
 #include <Common/Scene.hpp>
+#include <Common/Script.hpp>
 #include <Common/Time.hpp>
 #include <Common/Transform.hpp>
 
@@ -18,3 +19,4 @@
 #include <Graphics/Shader.hpp>
 #include <Graphics/Texture.hpp>
 
+#include <engine_global.hpp>

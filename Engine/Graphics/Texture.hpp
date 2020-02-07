@@ -11,7 +11,7 @@
 
 namespace Engine {
 
-    SER_DECL(Texture)
+    SER_DECL(ENGINE_EXPORT, Texture)
 
     /*
 	Represents a texture that has been created by loading images.

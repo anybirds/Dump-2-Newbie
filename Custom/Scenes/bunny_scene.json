@@ -69,12 +69,18 @@
             "fovy" : 60.0,
             "width" : 1920.0,
             "height" : 1080.0,
-            "near" : 0.1,
-            "far" : 1000.0,
+            "close" : 0.1,
+            "distant" : 1000.0,
             "left" : 0.0,
             "right" : 0.0,
             "bottom" : 0.0,
             "top" : 0.0
+        }
+    },
+    "RotateScript" : {
+        "bunny_rotate_script" : {
+            "gameObject" : "bunny",
+            "rate" : 90.0
         }
     }
 }

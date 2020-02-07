@@ -20,8 +20,8 @@ namespace Engine {
     MEMBER_SER | MEMBER_SHOW, float, fovy,
     MEMBER_SER | MEMBER_SHOW, float, width,
     MEMBER_SER | MEMBER_SHOW, float, height,
-    MEMBER_SER | MEMBER_SHOW, float, near,
-    MEMBER_SER | MEMBER_SHOW, float, far,
+    MEMBER_SER | MEMBER_SHOW, float, close,
+    MEMBER_SER | MEMBER_SHOW, float, distant,
     MEMBER_SER | MEMBER_SHOW, float, left,
     MEMBER_SER | MEMBER_SHOW, float, right,
     MEMBER_SER | MEMBER_SHOW, float, bottom,
@@ -49,9 +49,9 @@ Camera::~Camera() {
 
 void Camera::ComputeNormalization() {
     if (orthographic) {
-        normalization = ortho(left, right, bottom, top, near, far);
+        normalization = ortho(left, right, bottom, top, close, distant);
     } else {
-        normalization = perspective(radians(fovy), width / height, near, far);
+        normalization = perspective(radians(fovy), width / height, close, distant);
     }
 }
 
@@ -69,12 +69,12 @@ void Camera::SetWidth(float width) {
 }
 
 void Camera::SetNear(float near) {
-    this->near = near;
+    this->close = near;
     ComputeNormalization();
 }
 
 void Camera::SetFar(float far) {
-    this->far = far;
+    this->distant = far;
     ComputeNormalization();
 }
 

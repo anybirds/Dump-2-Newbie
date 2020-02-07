@@ -16,7 +16,7 @@ namespace Engine {
     class Shader;
     class Texture;
 
-    SER_DECL(Material)
+    SER_DECL(ENGINE_EXPORT, Material)
 
     class ENGINE_EXPORT Material final : public Resource {
         TYPE_DECL(Material)

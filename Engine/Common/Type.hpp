@@ -34,8 +34,8 @@
 #define MEMBER_SER 0x1
 #define MEMBER_SHOW 0x10
 
-#define TOJSON_DECL(T) class T; void ENGINE_EXPORT to_json(json &js, const T &t); void ENGINE_EXPORT to_json(json &js, const T *t);
-#define FROMJSON_DECL(T) class T; void ENGINE_EXPORT from_json(const json &js, T &t); void ENGINE_EXPORT from_json(const json &js, T *&t);
+#define TOJSON_DECL(E, T) class T; void E to_json(json &js, const T &t); void ENGINE_EXPORT to_json(json &js, const T *t);
+#define FROMJSON_DECL(E, T) class T; void E from_json(const json &js, T &t); void ENGINE_EXPORT from_json(const json &js, T *&t);
 
 #define TOJSON_BEGIN(T) \
     void to_json(json &js, const T *t) { to_json(js, static_cast<const Object *>(t)); } \
@@ -84,7 +84,7 @@ EXPAND(GET_MACRO(_0, __VA_ARGS__, TOJSON_MEMBER_10, ERROR, ERROR, TOJSON_MEMBER_
 #define FROMJSON_MEMBER_N(...) \
 EXPAND(GET_MACRO(_0, __VA_ARGS__, FROMJSON_MEMBER_10, ERROR, ERROR, FROMJSON_MEMBER_9, ERROR, ERROR, FROMJSON_MEMBER_8, ERROR, ERROR, FROMJSON_MEMBER_7, ERROR, ERROR, FROMJSON_MEMBER_6, ERROR, ERROR, FROMJSON_MEMBER_5, ERROR, ERROR, FROMJSON_MEMBER_4, ERROR, ERROR, FROMJSON_MEMBER_3, ERROR, ERROR, FROMJSON_MEMBER_2, ERROR, ERROR, FROMJSON_MEMBER_1, ERROR, ERROR, FROMJSON_MEMBER_0)(__VA_ARGS__))
 
-#define SER_DECL(T) TOJSON_DECL(T) FROMJSON_DECL(T)
+#define SER_DECL(E, T) TOJSON_DECL(E, T) FROMJSON_DECL(E, T)
 #define SER_DEF(T, B, ...) EXPAND(TOJSON_BEGIN(T) TOJSON_BASE(B) TOJSON_MEMBER_N(__VA_ARGS__) TOJSON_END FROMJSON_BEGIN(T) FROMJSON_BASE(B) FROMJSON_MEMBER_N(__VA_ARGS__) FROMJSON_END)
 
 using json = nlohmann::json;
@@ -161,11 +161,11 @@ struct concat<List<Types...>, T>
     typedef List<Types..., T> type;
 };
 
-template <typename...> struct TypeList {};
+template <typename...> struct type_list {};
 
 template <>
-struct TypeList<null> {};
-typedef TypeList<null> TypeListNull;
+struct type_list<null> {};
+typedef type_list<null> TypeListNull;
 #define TYPE_LIST TypeListNull
 
 #endif

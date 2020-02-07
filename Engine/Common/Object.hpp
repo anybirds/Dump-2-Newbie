@@ -12,7 +12,7 @@ namespace Engine {
 
     class Project;
 
-    SER_DECL(Object)
+    SER_DECL(ENGINE_EXPORT, Object)
 
     void ENGINE_EXPORT to_json(json &js, const Object *obj);
     void ENGINE_EXPORT from_json(const json &js, Object *&obj);

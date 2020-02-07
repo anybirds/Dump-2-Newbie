@@ -9,7 +9,7 @@
 
 namespace Engine {
 
-    SER_DECL(Shader)
+    SER_DECL(ENGINE_EXPORT, Shader)
 
     class ENGINE_EXPORT Shader final : public Resource {
         TYPE_DECL(Shader)

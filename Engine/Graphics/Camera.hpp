@@ -11,7 +11,7 @@ namespace Engine {
 
     class Renderer;
 
-    SER_DECL(Camera)
+    SER_DECL(ENGINE_EXPORT, Camera)
 
     /*
     Featured by its normalization matrix.
@@ -34,8 +34,8 @@ namespace Engine {
         float fovy;
         float width;
         float height;
-        float near;
-        float far;
+        float close;
+        float distant;
         float left;
         float right;
         float bottom;
@@ -57,8 +57,8 @@ namespace Engine {
         GET(float, Fovy, fovy)
         GET(float, Width, width)
         GET(float, Height, height)
-        GET(float, Near, near)
-        GET(float, Far, far)
+        GET(float, Near, close)
+        GET(float, Far, distant)
         GET(float, Left, left)
         GET(float, Right, right)
         GET(float, Top, top)

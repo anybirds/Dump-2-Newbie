@@ -14,7 +14,7 @@ namespace Engine {
 
     class Component;
 
-    SER_DECL(GameObject)
+    SER_DECL(ENGINE_EXPORT, GameObject)
 
     /*
     An atraction of a gameobject in the scene.

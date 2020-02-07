@@ -11,7 +11,7 @@
 
 namespace Engine {	
 
-    SER_DECL(Transform)
+    SER_DECL(ENGINE_EXPORT, Transform)
 
     /*
     GameObject's position, rotation, scale and hierarchical parent information.
@@ -56,6 +56,8 @@ namespace Engine {
         void SetPosition(const glm::vec3 &position);
         // void SetRotation(const glm::quat &rotation);
         void SetScale(const glm::vec3 &scale);
+
+        void Rotate(const glm::vec3 &eulerAngles);
 
         friend void Destroy(Transform *);
 	};

@@ -11,7 +11,7 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${EDITOR_SOURCE})
 
 add_executable(Editor ${EDITOR_SOURCE})
 
-target_link_libraries(Editor PRIVATE Qt5::Widgets Custom)
+target_link_libraries(Editor PRIVATE Qt5::Widgets Engine)
 
 target_include_directories(Editor
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}

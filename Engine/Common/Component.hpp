@@ -9,7 +9,7 @@ namespace Engine {
 
     class GameObject;
 
-    SER_DECL(Component)
+    SER_DECL(ENGINE_EXPORT, Component)
 
     /*
     Base class for components that comprise a GameObject.

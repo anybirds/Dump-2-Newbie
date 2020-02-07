@@ -1,6 +1,4 @@
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
+#include <Common/GameObject.hpp>
 #include <Common/Time.hpp>
 #include <Common/Transform.hpp>
 
@@ -18,10 +16,8 @@ RotateScript::RotateScript(const string &name, Type *type) : Component(name, typ
 
 }
 
-void RotateScript::Start() {
-
-}
-
-void RotateScript::Update() {
-
+void RotateScript::OnUpdate() {
+    float dt = Time::DeltaTime();
+    Transform *transform = GetGameObject()->GetTransform();
+    transform->Rotate(vec3(0.0f, rate * dt, 0.0f));
 }
