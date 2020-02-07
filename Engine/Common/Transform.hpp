@@ -33,8 +33,7 @@ namespace Engine {
         void PropagateUpdate();
 
     public:
-        Transform(const std::string &name, Type *type = &Transform::type);
-        virtual ~Transform();
+        Transform(const std::string &name, Type *type = Transform::type);
 
         virtual void OnInit() override;
 
@@ -57,7 +56,15 @@ namespace Engine {
         void SetPosition(const glm::vec3 &position);
         // void SetRotation(const glm::quat &rotation);
         void SetScale(const glm::vec3 &scale);
+
+        friend void Destroy(Transform *);
 	};
+
+    void Destroy(Transform *transform);
 }
+
+typedef typename concat<TYPE_LIST, Engine::Transform>::type TypeListTransform;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListTransform
 
 #endif

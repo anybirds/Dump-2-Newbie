@@ -1,24 +1,37 @@
-#include <exception>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
-#include <Common/Debug.hpp>
 #include <Graphics/Material.hpp>
 #include <Graphics/Shader.hpp>
 #include <Graphics/Texture.hpp>
-
-#ifdef DEBUG_GRAPHICS
-#define DEBUG
-#endif
 
 using namespace std;
 using namespace glm;
 using namespace Engine;
 
-Material::Material(const char *name, const Shader *vert_shader, const Shader *frag_shader) : Resource(name) {
-    if (vert_shader->type != GL_VERTEX_SHADER ||
-        frag_shader->type != GL_FRAGMENT_SHADER) {
+namespace Engine {
+    TYPE_DEF(Material)
+    SER_DEF(Material, Resource,
+    MEMBER_SER | MEMBER_SHOW, Shader *, vertexShader,
+    MEMBER_SER | MEMBER_SHOW, Shader *, fragmentShader,
+    MEMBER_SER | MEMBER_SHOW, Texture *, mainTexture
+    )
+}
+
+Material::Material(const string &name, Type *type) : Resource(name, type) {
+
+}
+
+void Material::OnInit() {
+    if (!vertexShader->loaded) {
+        vertexShader->OnInit();
+    }
+    if (!fragmentShader->loaded) {
+        fragmentShader->OnInit();
+    }
+    if (mainTexture && !mainTexture->loaded) {
+        mainTexture->OnInit();
+    }
+
+    if (vertexShader->shaderType != "vertex" ||
+        fragmentShader->shaderType != "fragment") {
 #ifdef DEBUG
         cout << '[' << __FUNCTION__ << ']' << " shader type mismatch";
 #endif
@@ -27,17 +40,21 @@ Material::Material(const char *name, const Shader *vert_shader, const Shader *fr
 
     // attach shaders and link
     program = glCreateProgram();
-    glAttachShader(program, vert_shader->shader);
-    glAttachShader(program, frag_shader->shader);
+    glAttachShader(program, vertexShader->id);
+    glAttachShader(program, fragmentShader->id);
     glLinkProgram(program);
 
     // sampler uniform values
     GLint location = glGetUniformLocation(program, "_MAIN_TEX");
     glUniform1i(location, 0);
+
+    Resource::OnInit();
 }
 
-Material::~Material() {
+void Material::OnDestroy() {
     glDeleteProgram(program);
+
+    Resource::OnDestroy();
 }
 
 int Material::GetInteger(const char *name) const {
@@ -180,5 +197,5 @@ void Material::SetMatrixArray(const char *name, const mat4 *value, int length) {
 
 void Material::UseTextures() {
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, main_texture->id);
+    glBindTexture(GL_TEXTURE_2D, mainTexture->id);
 }

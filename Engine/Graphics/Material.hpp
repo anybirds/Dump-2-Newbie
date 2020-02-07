@@ -12,18 +12,27 @@
 #include <engine_global.hpp>
 
 namespace Engine {
+
     class Shader;
     class Texture;
-    class Renderer;
+
+    SER_DECL(Material)
 
     class ENGINE_EXPORT Material final : public Resource {
+        TYPE_DECL(Material)
+
+        PROPERTY(Shader *, VertexShader, vertexShader)
+        PROPERTY(Shader *, FragmentShader, fragmentShader)
+        PROPERTY(Texture *, MainTexture, mainTexture)
+
     private:
         GLuint program;
-        Texture *main_texture;
 
     public:
-        Material(const char *name, const Shader *vert_shader, const Shader *frag_shader);
-        ~Material();
+        Material(const std::string &name, Type *type = Material::type);
+
+        void OnInit() override;
+        void OnDestroy() override;
 
         int GetInteger(const char *name) const;
         std::vector<int> GetIntegerArray(const char *name) const;
@@ -33,7 +42,6 @@ namespace Engine {
         std::vector<glm::vec4> GetVectorArray(const char *name) const;
         glm::mat4 GetMatrix(const char *name) const;
         std::vector<glm::mat4> GetMatrixArray(const char *name) const;
-        Texture* GetMainTexture() const { return main_texture; }
 
         void SetInteger(const char *name, int value);
         void SetIntegerArray(const char *name, const int *value, int length);
@@ -43,12 +51,15 @@ namespace Engine {
         void SetVectorArray(const char *name, const glm::vec4 *value, int length);
         void SetMatrix(const char *name, const glm::mat4 &value);
         void SetMatrixArray(const char *name, const glm::mat4 *value, int length);
-        void SetMainTexture(Texture *texture) { main_texture = texture; }
 
         void UseTextures();
 
-        friend class Renderer;
+        friend class Camera;
     };
 }
+
+typedef typename concat<TYPE_LIST, Engine::Material>::type TypeListMaterial;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListMaterial
 
 #endif

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Window::Window(const char *name) {
+Window::Window(const std::string &name) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -16,19 +16,19 @@ Window::Window(const char *name) {
     width = mode->width;
     height = mode->height;
 
-    window = glfwCreateWindow(width, height, name, NULL, NULL);
+    window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwMaximizeWindow(window);
 }
 
-Window::Window(const char *name, int width, int height) 
+Window::Window(const std::string &name, int width, int height)
 	: name(name), width(width), height(height) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	this->window = glfwCreateWindow(width, height, name, NULL, NULL);
+    this->window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 	glfwMakeContextCurrent(this->window);
 }
 

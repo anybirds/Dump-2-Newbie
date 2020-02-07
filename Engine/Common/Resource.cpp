@@ -10,17 +10,13 @@ namespace Engine {
     TOJSON_BEGIN(Resource)
     TOJSON_END
 
-    // hack used to initialize the resource only when loading Scene
-    void from_json(const json &js, Resource *&res) {
-        res->shouldLoad = Resource::sceneLoad;
-        std::string name = js.get<std::string>(); res = Engine::Find<Resource>(name);
-    }
-    void from_json(const json &js, Resource &res) { }
+    FROMJSON_BEGIN(Resource)
+    FROMJSON_END
 }
 
 bool Resource::sceneLoad;
 
-Resource::Resource(const string &name, Type *type) : Object(name, type) {
+Resource::Resource(const string &name, Type *type) : Object(name, type), loaded(false), shouldLoad(false) {
     Project::resset.insert(this);
 }
 

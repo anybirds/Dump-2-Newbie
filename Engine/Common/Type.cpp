@@ -1,3 +1,4 @@
+#include <Common/Debug.hpp>
 #include <Common/Object.hpp>
 #include <Common/Type.hpp>
 
@@ -31,27 +32,27 @@ namespace glm {
     }
 
     void from_json(const json &js, glm::vec3 &v) {
-        v = vec3(js[0], js[1], js[2]);
+        v = vec3(js[0].get<float>(), js[1].get<float>(), js[2].get<float>());
     }
 
     void from_json(const json &js, glm::vec4 &v) {
-        v = vec4(js[0], js[1], js[2], js[3]);
+        v = vec4(js[0].get<float>(), js[1].get<float>(), js[2].get<float>(), js[3].get<float>());
     }
 
     void from_json(const json &js, glm::mat3 &m) {
         m = mat3(
-        js[0][0], js[0][1], js[0][2],
-        js[1][0], js[1][1], js[1][2],
-        js[2][0], js[2][1], js[2][2]
+        js[0][0].get<float>(), js[0][1].get<float>(), js[0][2].get<float>(),
+        js[1][0].get<float>(), js[1][1].get<float>(), js[1][2].get<float>(),
+        js[2][0].get<float>(), js[2][1].get<float>(), js[2][2].get<float>()
         );
     }
 
     void from_json(const json &js, glm::mat4 &m) {
         m = mat4(
-        js[0][0], js[0][1], js[0][2], js[0][3],
-        js[1][0], js[1][1], js[1][2], js[1][3],
-        js[2][0], js[2][1], js[2][2], js[2][3],
-        js[3][0], js[3][1], js[3][2], js[3][3]
+        js[0][0].get<float>(), js[0][1].get<float>(), js[0][2].get<float>(), js[0][3].get<float>(),
+        js[1][0].get<float>(), js[1][1].get<float>(), js[1][2].get<float>(), js[1][3].get<float>(),
+        js[2][0].get<float>(), js[2][1].get<float>(), js[2][2].get<float>(), js[2][3].get<float>(),
+        js[3][0].get<float>(), js[3][1].get<float>(), js[3][2].get<float>(), js[3][3].get<float>()
         );
     }
 }

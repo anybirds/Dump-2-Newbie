@@ -9,6 +9,8 @@
 
 namespace Engine {
 
+    class Renderer;
+
     SER_DECL(Camera)
 
     /*
@@ -17,6 +19,9 @@ namespace Engine {
     */
     class ENGINE_EXPORT Camera final : public Component {
         TYPE_DECL(Camera)
+
+    private:
+        static std::unordered_set<Renderer *> rendset;
 
     public:
         static Camera *GetMainCamera();
@@ -37,7 +42,7 @@ namespace Engine {
         float top;
 
 	public:
-        Camera(const std::string &name, Type *type = &Camera::type);
+        Camera(const std::string &name, Type *type = Camera::type);
         virtual ~Camera();
 
         virtual void OnInit() override;
@@ -70,7 +75,13 @@ namespace Engine {
         void SetBottom(float bottom);
 
         void Render();
+
+        friend class Renderer;
 	};
 }
+
+typedef typename concat<TYPE_LIST, Engine::Camera>::type TypeListCamera;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListCamera
 
 #endif

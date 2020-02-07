@@ -7,7 +7,8 @@ using namespace Engine;
 namespace Engine {
     TYPE_DEF(Component)
     SER_DEF(Component, Object,
-    MEMBER_SER, GameObject *, gameObject)
+    MEMBER_SER, GameObject *, gameObject
+    )
 }
 
 
@@ -17,4 +18,6 @@ Component::Component(const std::string &name, Type *type) : Object(name, type) {
 
 Component::~Component() {
     Scene::curr->compset.erase(this);
+
+    gameObject->components.erase(GetType(this)->GetName());
 }

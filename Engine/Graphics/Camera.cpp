@@ -1,9 +1,16 @@
 #include <glm/gtx/transform.hpp>
 
+#include <Common/Debug.hpp>
+#include <Common/GameObject.hpp>
 #include <Common/Scene.hpp>
+#include <Common/Transform.hpp>
 #include <Graphics/Camera.hpp>
+#include <Graphics/Material.hpp>
+#include <Graphics/Mesh.hpp>
+#include <Graphics/Renderer.hpp>
 
 using namespace glm;
+using namespace std;
 using namespace Engine;
 
 namespace Engine {
@@ -21,6 +28,8 @@ namespace Engine {
     MEMBER_SER | MEMBER_SHOW, float, top
     )
 }
+
+unordered_set<Renderer *> Camera::rendset;
 
 Camera *Camera::GetMainCamera() {
     return Find<SceneSetting>("RenderSetting")->GetMainCamera();
@@ -40,9 +49,9 @@ Camera::~Camera() {
 
 void Camera::ComputeNormalization() {
     if (orthographic) {
-        normalization = perspective(fovy, width / height, near, far);
-    } else {
         normalization = ortho(left, right, bottom, top, near, far);
+    } else {
+        normalization = perspective(radians(fovy), width / height, near, far);
     }
 }
 
@@ -89,6 +98,39 @@ void Camera::SetBottom(float bottom) {
 }
 
 void Camera::Render() {
+    glClearColor((GLclampf) 0.0f, (GLclampf) 0.0f, (GLclampf) 0.0f, (GLclampf) 0.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    for (Renderer *rend : rendset) {
+        Mesh *mesh = rend->GetMesh();
+        Material *material = rend->GetMaterial();
+
+        glBindVertexArray(mesh->vao);
+
+        glUseProgram(material->program);
+        material->UseTextures();
+
+        GLuint location;
+
+        location = glGetUniformLocation(material->program, "_MODEL");
+
+        mat4 _MODEL = rend->GetGameObject()->GetTransform()->GetLocalToWorldMatrix();
+        glUniformMatrix4fv(location, 1, GL_FALSE, (const GLfloat *)&_MODEL);
+
+        location = glGetUniformLocation(material->program, "_CAM");
+        mat4 _CAM = GetGameObject()->GetTransform()->GetLocalToWorldMatrix();
+        glUniformMatrix4fv(location, 1, GL_FALSE, (const GLfloat *)&_CAM);
+        location = glGetUniformLocation(material->program, "_NORM");
+        glUniformMatrix4fv(location, 1, GL_FALSE, (const GLfloat *)&normalization);
+
+        if (!mesh->icnt) {
+            // mesh without EBO
+            glDrawArrays(GL_TRIANGLES, 0, mesh->vcnt);
+        }
+        else {
+            // mesh with EBO
+            glDrawElements(GL_TRIANGLES, mesh->icnt, GL_UNSIGNED_INT, 0);
+        }
+    }
 }
 

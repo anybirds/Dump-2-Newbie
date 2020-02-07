@@ -5,17 +5,37 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <Graphics/Mesh.hpp>
+#include <Common/Resource.hpp>
 
 #include <engine_global.hpp>
 
 namespace Engine {
 
-    class ENGINE_EXPORT Model final {
-	public:
-		/* Import a model and create all meshes it has */
-		static bool Import(const char *model_path);
-	};
+    SER_DECL(Model)
+
+    class ENGINE_EXPORT Model final : public Resource {
+        TYPE_DECL(Model)
+
+        PROPERTY(std::string, Path, path)
+
+    private:
+        static bool sceneLoad;
+
+        Assimp::Importer *importer;
+
+    public:
+        Model(const std::string &name, Type *type = Model::type);
+
+        virtual void OnInit() override;
+        virtual void OnDestroy() override;
+
+        friend class Scene;
+        friend class Mesh;
+    };
 }
+
+typedef typename concat<TYPE_LIST, Engine::Model>::type TypeListModel;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListModel
 
 #endif

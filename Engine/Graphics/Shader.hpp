@@ -8,17 +8,31 @@
 #include <engine_global.hpp>
 
 namespace Engine {
+
+    SER_DECL(Shader)
+
     class ENGINE_EXPORT Shader final : public Resource {
+        TYPE_DECL(Shader)
+
+        PROPERTY(std::string, Path, path)
+        PROPERTY_GET(std::string, ShaderType, shaderType)
+
     private:
-        GLenum type;
-        GLuint shader;
+        GLuint id;
 
     public:
-        Shader(const char *name, GLenum type, const char *path);
-        ~Shader();
+        Shader(const std::string &name, Type *type = Shader::type);
+
+        virtual void OnInit() override;
+        virtual void OnDestroy() override;
 
         friend class Material;
     };
 }
+
+typedef typename concat<TYPE_LIST, Engine::Shader>::type TypeListShader;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListShader
+
 
 #endif

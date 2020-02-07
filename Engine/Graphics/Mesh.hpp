@@ -9,16 +9,23 @@
 
 namespace Engine {
 
-	/*
-	Mesh
+    class Model;
 
+    SER_DECL(Mesh)
+
+    /*
 	Represents a wireframe that exists in the object space. 
 	Users must define a MeshDetail object and pass it as an argument in order to create a Mesh.
-	Mesh object can consist points in 2D, 3D or whatever dimensional space, 
+    Mesh object can consist points in 2D and 3D space,
 	can have multiple attributes for each vertex and can represent indexed wireframe. 
 	*/
     class ENGINE_EXPORT Mesh final : public Resource {
+        TYPE_DECL(Mesh)
+
 	private:
+        Model *model;
+        int index;
+
 		unsigned vcnt;
 		unsigned icnt;
 
@@ -26,14 +33,18 @@ namespace Engine {
 		GLuint vbo;
 		GLuint ebo;
 		
-	public:
-		/* acquires resources(VAO, VBO, EBO) needed to generate a mesh for a model */
-		Mesh(const char *name, const float *vert, unsigned vcnt, const unsigned *attrib, unsigned acnt, const unsigned *idx = nullptr, unsigned icnt = 0);
-		Mesh(const char *name, const char *model_path, unsigned midx = 0);
-		~Mesh();
+    public:
+        Mesh(const std::string &name, Type *type = Mesh::type);
 
-		friend class Renderer;
+        virtual void OnInit() override;
+        virtual void OnDestroy() override;
+
+        friend class Camera;
 	};
 }
+
+typedef typename concat<TYPE_LIST, Engine::Mesh>::type TypeListMesh;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListMesh
 
 #endif

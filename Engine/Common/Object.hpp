@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <Common/Type.hpp>
 #include <engine_global.hpp>
@@ -13,6 +14,13 @@ namespace Engine {
 
     SER_DECL(Object)
 
+    void ENGINE_EXPORT to_json(json &js, const Object *obj);
+    void ENGINE_EXPORT from_json(const json &js, Object *&obj);
+
+    void ENGINE_EXPORT Destroy(Object *obj);
+    bool ENGINE_EXPORT IsValid(Object *obj);
+    Type ENGINE_EXPORT *GetType(Object *obj);
+
     /*
     Base class for all serializeable objects.
     */
@@ -22,12 +30,13 @@ namespace Engine {
     private:
         static std::unordered_map<Object *, Type *> objs;
         static std::unordered_map<std::string, Object *> objmap;
+        static std::unordered_set<Object *> des;
 
     private:
         std::string name;
 
     public:
-        Object(const std::string &name, Type *type = &Object::type);
+        Object(const std::string &name, Type *type = Object::type);
         virtual ~Object();
 
         std::string const &GetName() const { return name; }
@@ -46,27 +55,12 @@ namespace Engine {
         virtual void OnInit() { }
         virtual void OnDestroy() { }
 
+        friend void Destroy(Object *);
         friend bool IsValid(Object *);
         friend Type *GetType(Object *);
         template <typename T> friend T *Find(const std::string &);
         friend class Project;
     };
-
-    bool IsValid(Object *obj) {
-        auto it = Object::objs.find(obj);
-        if (it == Object::objs.end()) {
-            return false;
-        }
-        return true;
-    }
-
-    Type *GetType(Object *obj) {
-        auto it = Object::objs.find(obj);
-        if (it == Object::objs.end()) {
-            return nullptr;
-        }
-        return it->second;
-    }
 
     template <typename T>
     T *Find(const std::string &name) {
@@ -77,5 +71,9 @@ namespace Engine {
         return dynamic_cast<T *>(it->second);
     }
 }
+
+typedef typename concat<TYPE_LIST, Engine::Object>::type TypeListObject;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListObject
 
 #endif

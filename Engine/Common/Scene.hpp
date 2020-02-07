@@ -21,7 +21,7 @@ namespace Engine {
         PROPERTY(Camera *, MainCamera, mainCamera)
 
     public:
-        SceneSetting(const std::string &name, Type *type = &SceneSetting::type);
+        SceneSetting(const std::string &name, Type *type = SceneSetting::type);
         virtual ~SceneSetting();
     };
 
@@ -49,13 +49,21 @@ namespace Engine {
         std::unordered_set<Component *> compset;
 
     public:
-        Scene(const std::string &name, Type *type = &Scene::type);
-        virtual ~Scene();
+        Scene(const std::string &name, Type *type = Scene::type);
+        virtual ~Scene() override;
 
         friend class SceneSetting;
         friend class GameObject;
         friend class Component;
     };
 }
+
+typedef typename concat<TYPE_LIST, Engine::SceneSetting>::type TypeListSceneSetting;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListSceneSetting
+
+typedef typename concat<TYPE_LIST, Engine::Scene>::type TypeListScene;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListScene
 
 #endif

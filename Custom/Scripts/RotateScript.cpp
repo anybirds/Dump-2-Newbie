@@ -1,22 +1,20 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <Common/Object.hpp>
 #include <Common/Time.hpp>
 #include <Common/Transform.hpp>
 
 #include <Scripts/RotateScript.hpp>
 
 using namespace glm;
-using namespace Engine;
+using namespace std;
 
-RotateScript::RotateScript(Object *object, float rate) 
-	: Component(object), Script(),
-	rate(rate) {
+TYPE_DEF(RotateScript)
+SER_DEF(RotateScript, Component,
+MEMBER_SER | MEMBER_SHOW, float, rate
+)
 
-}
-
-RotateScript::~RotateScript() {
+RotateScript::RotateScript(const string &name, Type *type) : Component(name, type) {
 
 }
 
@@ -25,6 +23,5 @@ void RotateScript::Start() {
 }
 
 void RotateScript::Update() {
-	Transform &transform = GetObject().GetTransform();
-	transform.SetRotation(rotate(transform.GetRotation(), radians(rate * Time::DeltaTime()), vec3(0.0f, 1.0f, 0.0f)));
+
 }

@@ -11,21 +11,31 @@
 
 namespace Engine {
 
-	/*
-	Texture
-	
+    SER_DECL(Texture)
+
+    /*
 	Represents a texture that has been created by loading images.
 	*/
     class ENGINE_EXPORT Texture final : public Resource {
+        TYPE_DECL(Texture)
+
+        PROPERTY(std::string, Path, path)
+
 	private:
 		GLuint id;
 
-	public:
-		Texture(const char *name, const char *texture_path);
-        ~Texture();
+    public:
+        Texture(const std::string &name, Type *type = Texture::type);
+
+        void OnInit() override;
+        void OnDestroy() override;
 
         friend class Material;
 	};
 }
+
+typedef typename concat<TYPE_LIST, Engine::Texture>::type TypeListTexture;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListTexture
 
 #endif

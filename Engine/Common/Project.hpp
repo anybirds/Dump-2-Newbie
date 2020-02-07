@@ -9,6 +9,8 @@
 namespace Engine {
 
     class Scene;
+    class Model;
+    class Shader;
     class Resource;
 
     /*
@@ -29,6 +31,7 @@ namespace Engine {
         static void Save();
 
         friend class Scene;
+        friend class Model;
         friend class Resource;
     };
 }

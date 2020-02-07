@@ -18,16 +18,24 @@ namespace Engine {
     private:
         static bool sceneLoad;
 
-    private:
+    protected:
         bool loaded;
         bool shouldLoad;
 
     public:
-        Resource(const std::string &name, Type *type = &Resource::type);
-        virtual ~Resource();
+        Resource(const std::string &name, Type *type = Resource::type);
+        virtual ~Resource() override;
+
+        virtual void OnInit() override { loaded = true; shouldLoad = true; }
+        virtual void OnDestroy() override { loaded = false; }
 
         friend class Scene;
-        friend void from_json(const json &, Resource *&);
+        friend void from_json(const json &, Object *&);
     };
 }
+
+typedef typename concat<TYPE_LIST, Engine::Resource>::type TypeListResource;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListResource
+
 #endif

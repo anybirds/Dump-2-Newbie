@@ -5,6 +5,9 @@
 
 using namespace Engine;
 
+double Time::dt;
+double Time::prev;
+
 void Time::Init() {
     dt = 0.0;
     prev = glfwGetTime();

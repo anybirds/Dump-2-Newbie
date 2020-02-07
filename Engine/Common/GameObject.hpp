@@ -26,17 +26,23 @@ namespace Engine {
     public:
         typedef std::unordered_map<std::string, Component *> ComponentMap;
 
+    private:
         PROPERTY(Transform *, Transform, transform)
         ComponentMap components;
 
     public:
-        GameObject(const std::string &name, Type *type = &GameObject::type);
-        virtual ~GameObject();
+        GameObject(const std::string &name, Type *type = GameObject::type);
+        virtual ~GameObject() override;
+
+        const ComponentMap &GetComponents() { return components; }
 
         template <typename T>
         T *GetComponent() const;
         template <typename T>
         T *AddComponent();
+
+        friend class Component;
+        friend void Destroy(GameObject *);
     };
 
     template <typename T>
@@ -48,5 +54,12 @@ namespace Engine {
     T *GameObject::AddComponent() {
 
     }
+
+    void Destroy(GameObject *go);
 }
+
+typedef typename concat<TYPE_LIST, Engine::GameObject>::type TypeListGameObject;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListGameObject
+
 #endif

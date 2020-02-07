@@ -26,23 +26,23 @@
             "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Models\\square_model.obj"
         },
         "bunny_model" : {
-            "path" : "C:\\Users\\river\\Documen{{ts\\Newbie\\Custom\\Models\\bunny_model.obj"
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Models\\bunny_model.obj"
         }
     },
     "Shader" : {
         "bunny_vert" : {
-            "type" : "vertex",
+            "shaderType" : "vertex",
             "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Shaders\\unlit_vert.glsl"
         },
         "bunny_frag" : {
-            "type" : "fragment",
+            "shaderType" : "fragment",
             "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Shaders\\unlit_frag.glsl"
         }
     },
 
     "Texture" : {
         "bunny_tex" : {
-            "Path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Textures\\bunny_texture.png"
+            "path" : "C:\\Users\\river\\Documents\\Newbie\\Custom\\Textures\\bunny_texture.png"
         }
     }
 }

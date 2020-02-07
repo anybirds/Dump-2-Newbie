@@ -20,9 +20,13 @@ namespace Engine {
         PROPERTY_GET(GameObject *, GameObject, gameObject)
 
     public:
-        Component(const std::string &name, Type *type = &Component::type);
-        virtual ~Component();
+        Component(const std::string &name, Type *type = Component::type);
+        virtual ~Component() override;
     };
 }
+
+typedef typename concat<TYPE_LIST, Engine::Component>::type TypeListComponent;
+#undef TYPE_LIST
+#define TYPE_LIST TypeListComponent
 
 #endif

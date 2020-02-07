@@ -1,25 +1,37 @@
-#include <Common/Time.hpp>
-
+#include <Engine.hpp>
 #include <Window.hpp>
-#include <Scene.hpp>
 
 using namespace std;
 using namespace glm;
 using namespace Engine;
 
+template <template <typename ...> class List, typename T, typename ...Types>
+void TypeInit();
+
+template <typename T, typename ...Types>
+inline void TypeInit(TypeList<T, Types...>) {
+    T::type = new Type(T::typeName, T::Instantiate, T::Serialize, T::Deserialize);
+    TypeInit(TypeList<Types...>());
+}
+
+template <typename T>
+inline void TypeInit(TypeList<T>) {
+    T::type = new Type(T::typeName, T::Instantiate, T::Serialize, T::Deserialize);
+}
+
 int main(int argc, char **argv) {
-    Window window("App"); // replace this code to Window::Init({});
+    TypeInit(TYPE_LIST());
 
-    Scene scene; // replace this to Scene scene({""});
-
-    World::Start();
+    Window window("App");
+    Project::Load("C:\\Users\\river\\Documents\\Newbie\\Custom\\custom_project.json");
+    Scene::Load("bunny_scene");
 
     while (!window.ShouldClose()) {
         Time::Tick();
 
-        World::Update();
-        World::Render();
+        Camera::GetMainCamera()->Render();
+
 		window.SwapBuffers();
         window.PollEvents();
-	}
+    }
 }

@@ -1,6 +1,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
+#include <Common/GameObject.hpp>
+#include <Common/Scene.hpp>
 #include <Common/Transform.hpp>
 
 using namespace std;
@@ -16,13 +18,18 @@ namespace Engine {
     MEMBER_SER, Transform *, parent,
     MEMBER_SER, std::vector<Transform *>, children
     )
+
+    void Destroy(Transform *transform) {
+        Destroy(static_cast<Object *>(transform));
+        GameObject *go = transform->GetGameObject();
+        Destroy(static_cast<Object *>(go));
+        for (auto p : go->GetComponents()) {
+            Destroy(static_cast<Object *>(p.second));
+        }
+    }
 }
 
-Transform::Transform(const string &name, Type *type) : Component(name, type) {
-
-}
-
-Transform::~Transform() {
+Transform::Transform(const string &name, Type *type) : Component(name, type), updated(false) {
 
 }
 
@@ -38,6 +45,7 @@ void Transform::PropagateUpdate() {
 }
 
 void Transform::OnInit() {
+    localRotation = toQuat(eulerAngleZXY(radians(localEulerAngles.z), radians(localEulerAngles.x), radians(localEulerAngles.y)));
     localToWorldMatrix = GetLocalToWorldMatrix();
 }
 
@@ -59,15 +67,15 @@ mat4 Transform::GetWorldToLocalMatrix() const {
 }
 
 vec3 Transform::GetPosition() const {
-    return mat3(GetLocalToWorldMatrix()) * localPosition;
+    return mat3(parent? parent->GetLocalToWorldMatrix() : mat4(1.0f)) * localPosition;
 }
 
 quat Transform::GetRotation() const {
-    return toQuat(GetLocalToWorldMatrix() * toMat4(localRotation));
+    return toQuat((parent? parent->GetLocalToWorldMatrix() : mat4(1.0f)) * toMat4(localRotation));
 }
 
 vec3 Transform::GetScale() const {
-    return mat3(GetLocalToWorldMatrix()) * localScale;
+    return mat3(parent? parent->GetLocalToWorldMatrix() : mat4(1.0f)) * localScale;
 }
 
 void Transform::SetLocalPosition(const glm::vec3 &localPosition) {
@@ -82,17 +90,17 @@ void Transform::SetLocalScale(const glm::vec3 &localScale) {
 
 void Transform::SetLocalEulerAngles(const glm::vec3 &localEulerAngles) {
     this->localEulerAngles = localEulerAngles;
-    this->localRotation = toQuat(GetLocalToWorldMatrix() * eulerAngleZXY(radians(localEulerAngles.z), radians(localEulerAngles.x), radians(localEulerAngles.y)));
+    this->localRotation = toQuat(eulerAngleZXY(radians(localEulerAngles.z), radians(localEulerAngles.x), radians(localEulerAngles.y)));
     PropagateUpdate();
 }
 
 void Transform::SetPosition(const glm::vec3 &position) {
-    this->localPosition = mat3(GetWorldToLocalMatrix()) * position;
+    this->localPosition = mat3(parent? parent->GetWorldToLocalMatrix() : mat4(1.0f)) * position;
     PropagateUpdate();
 }
 
 void Transform::SetScale(const glm::vec3 &scale) {
-    this->localScale = mat3(GetWorldToLocalMatrix()) * scale;
+    this->localScale = mat3(parent? parent->GetWorldToLocalMatrix() : mat4(1.0f)) * scale;
     PropagateUpdate();
 }
 

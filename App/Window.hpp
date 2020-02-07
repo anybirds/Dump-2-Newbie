@@ -19,8 +19,8 @@ public:
     int height;
 
 public:
-    Window(const char *name);
-    Window(const char *name, int width, int height);
+    Window(const std::string &name);
+    Window(const std::string &name, int width, int height);
     ~Window();
 
     bool ShouldClose();
