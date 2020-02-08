@@ -19,5 +19,7 @@ Component::Component(const std::string &name, Type *type) : Object(name, type) {
 Component::~Component() {
     Scene::curr->compset.erase(this);
 
-    gameObject->components.erase(GetType(this)->GetName());
+    if (IsValid(gameObject)) {
+        gameObject->components.erase(GetType(this)->GetName());
+    }
 }

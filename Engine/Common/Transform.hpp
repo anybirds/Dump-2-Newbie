@@ -13,6 +13,8 @@ namespace Engine {
 
     SER_DECL(ENGINE_EXPORT, Transform)
 
+    void ENGINE_EXPORT Destroy(Transform *transform);
+
     /*
     GameObject's position, rotation, scale and hierarchical parent information.
     */
@@ -62,8 +64,6 @@ namespace Engine {
 
         friend void Destroy(Transform *);
 	};
-
-    void Destroy(Transform *transform);
 }
 
 typedef typename concat<TYPE_LIST, Engine::Transform>::type TypeListTransform;

@@ -14,6 +14,7 @@ class CUSTOM_EXPORT RotateScript : public Component, public Script {
     TYPE_DECL(RotateScript)
 
     PROPERTY(float, Rate, rate)
+    float elapsed;
 
 public:
     RotateScript(const std::string &name, Type *type = RotateScript::type);

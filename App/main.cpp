@@ -32,12 +32,15 @@ int main(int argc, char **argv) {
 
     Script::Start();
 
+    Time::Init();
     while (!window.ShouldClose()) {
         Time::Tick();
 
         Script::Update();
 
         Camera::GetMainCamera()->Render();
+
+        Object::Destruct();
 
 		window.SwapBuffers();
         window.PollEvents();

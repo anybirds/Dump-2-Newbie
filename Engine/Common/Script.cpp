@@ -3,7 +3,7 @@
 using namespace std;
 using namespace Engine;
 
-std::unordered_set<Script *> Script::scriptset;
+unordered_set<Script *> Script::scriptset;
 
 void Script::Start() {
     for (Script *script : scriptset) {

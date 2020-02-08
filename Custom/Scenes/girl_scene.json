@@ -1,86 +1,123 @@
 {
-    "SceneSetting" : {
-        "RenderSetting" : {
-            "mainCamera" : "eye_camera"
+    "Camera": {
+        "eye_camera": {
+            "bottom": 0.0,
+            "close": 0.10000000149011612,
+            "distant": 1000.0,
+            "fovy": 60.0,
+            "gameObject": "eye",
+            "height": 1080.0,
+            "left": 0.0,
+            "orthographic": false,
+            "right": 0.0,
+            "top": 0.0,
+            "width": 1920.0
         }
     },
-    "GameObject" : {
-        "square" : {
-            "transform" : "square_transform",
-            "components" : {
-                "Renderer" : "square_renderer"
-            }
+    "GameObject": {
+        "eye": {
+            "components": {
+                "Camera": "eye_camera"
+            },
+            "transform": "eye_transform"
         },
-        "girl" : {
-            "transform" : "girl_transform",
-            "components" : {
-                "Renderer" : "girl_renderer"
-            }
+        "girl": {
+            "components": {
+                "Renderer": "girl_renderer",
+                "RotateScript": "girl_rotate_script"
+            },
+            "transform": "girl_transform"
         },
-        "eye" : {
-            "transform" : "eye_transform",
-            "components" : {
-                "Camera" : "eye_camera"
-            }
+        "square": {
+            "components": {
+                "Renderer": "square_renderer"
+            },
+            "transform": "square_transform"
         }
     },
-    "Transform" : {
-        "square_transform" : {
-            "gameObject" : "square",
-            "localPosition" : [-2.0, 0.0, 0.0],
-            "localEulerAngles" : [0.0, 0.0, 0.0], 
-            "localScale" : [1.0, 1.0, 1.0],
-            "parent" : null,
-            "children" : []
+    "Renderer": {
+        "girl_renderer": {
+            "gameObject": "girl",
+            "material": "girl_material",
+            "mesh": "girl_mesh"
         },
-        "girl_transform" : {
-            "gameObject" : "girl",
-            "localPosition" : [2.0, -2.0, 0.0],
-            "localEulerAngles" : [-90.0, 0.0, 0.0],
-            "localScale" : [0.002, 0.002, 0.002],
-            "parent" : null,
-            "children" : []
-        },
-        "eye_transform" : {
-            "gameObject" : "eye",
-            "localPosition" : [0.0, 0.0, 5.0],
-            "localEulerAngles" : [0.0, 0.0, 0.0],
-            "localScale" : [1.0, 1.0, 1.0],
-            "parent" : null,
-            "children" : []
+        "square_renderer": {
+            "gameObject": "square",
+            "material": "girl_material",
+            "mesh": "square_mesh"
         }
     },
-    "Renderer" : {
-        "square_renderer" : {
-            "gameObject" : "square",
-            "mesh" : "square_mesh",
-            "material" : "girl_material"
+    "RotateScript": {
+        "girl_rotate_script": {
+            "gameObject": "girl",
+            "rate": 90.0
+        }
+    },
+    "SceneSetting": {
+        "RenderSetting": {
+            "mainCamera": "eye_camera"
+        }
+    },
+    "Transform": {
+        "eye_transform": {
+            "children": [],
+            "gameObject": "eye",
+            "localEulerAngles": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "localPosition": [
+                0.0,
+                0.0,
+                5.0
+            ],
+            "localScale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": null
         },
-        "girl_renderer" : {
-            "gameObject" : "girl",
-            "mesh" : "girl_mesh",
-            "material" : "girl_material"
-        }
-    },
-    "Camera" : {
-        "eye_camera" : {
-            "gameObject" : "eye",
-            "orthographic" : false,
-            "fovy" : 60.0,
-            "width" : 1920.0,
-            "height" : 1080.0,
-            "close" : 0.1,
-            "distant" : 1000.0,
-            "left" : 0.0,
-            "right" : 0.0,
-            "bottom" : 0.0,
-            "top" : 0.0
-        }
-    },
-    "RotateScript" : {
-        "girl_rotate_script" : {
-            "gameObject" : "girl",
-            "rate" : 90.0
+        "girl_transform": {
+            "children": [],
+            "gameObject": "girl",
+            "localEulerAngles": [
+                89.9986343383789,
+                -89.40357208251953,
+                -179.99862670898438
+            ],
+            "localPosition": [
+                2.0,
+                -2.0,
+                0.0
+            ],
+            "localScale": [
+                0.0020000000949949026,
+                0.0020000000949949026,
+                0.0020000000949949026
+            ],
+            "parent": null
+        },
+        "square_transform": {
+            "children": [],
+            "gameObject": "square",
+            "localEulerAngles": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "localPosition": [
+                -2.0,
+                0.0,
+                0.0
+            ],
+            "localScale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": null
         }
     }
 }

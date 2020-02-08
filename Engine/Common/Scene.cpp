@@ -190,11 +190,11 @@ void Scene::Save() {
     json js;
 
     for (SceneSetting *setting : Scene::curr->settingset) {
-        js["SceneSetting"].push_back({setting->GetName(), *setting});
+        js["SceneSetting"][setting->GetName()] = *setting;
     }
 
     for (GameObject *go : Scene::curr->goset) {
-        js["GameObject"].push_back({go->GetName(), *go});
+        js["GameObject"][go->GetName()] = *go;
     }
 
     for (Component *comp : Scene::curr->compset) {
@@ -202,5 +202,5 @@ void Scene::Save() {
         type->Serialize(js[type->GetName()][comp->GetName()], comp);
     }
 
-    sfs << js;
+    sfs << js.dump(4);
 }

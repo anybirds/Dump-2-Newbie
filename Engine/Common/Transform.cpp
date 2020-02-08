@@ -1,6 +1,5 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/euler_angles.hpp>
 
 #include <Common/GameObject.hpp>
 #include <Common/Scene.hpp>
@@ -46,7 +45,7 @@ void Transform::PropagateUpdate() {
 }
 
 void Transform::OnInit() {
-    localRotation = toQuat(eulerAngleXYZ(radians(localEulerAngles.x), radians(localEulerAngles.y), radians(localEulerAngles.z)));
+    localRotation = quat(radians(localEulerAngles));
     localToWorldMatrix = GetLocalToWorldMatrix();
 }
 
@@ -85,7 +84,7 @@ void Transform::SetLocalPosition(const glm::vec3 &localPosition) {
 }
 
 void Transform::SetLocalRotation(const glm::quat &localRotation) {
-    this->localEulerAngles = eulerAngles(localRotation);
+    this->localEulerAngles = degrees(eulerAngles(localRotation));
     this->localRotation = localRotation;
     PropagateUpdate();
 }
@@ -97,7 +96,7 @@ void Transform::SetLocalScale(const glm::vec3 &localScale) {
 
 void Transform::SetLocalEulerAngles(const glm::vec3 &localEulerAngles) {
     this->localEulerAngles = localEulerAngles;
-    this->localRotation = toQuat(eulerAngleXYZ(radians(localEulerAngles.x), radians(localEulerAngles.y), radians(localEulerAngles.z)));
+    this->localRotation = quat(radians(localEulerAngles));
     PropagateUpdate();
 }
 

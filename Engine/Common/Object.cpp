@@ -1,3 +1,4 @@
+#include <Common/Debug.hpp>
 #include <Common/Object.hpp>
 #include <Common/Resource.hpp>
 
@@ -63,6 +64,16 @@ unordered_map<Object *, Type *> Object::objs;
 unordered_map<string, Object *> Object::objmap;
 unordered_set<Object *> Object::des;
 
+void Object::Destruct() {
+    for (Object *obj : des) {
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " destroy " << obj->name << endl;
+#endif
+        delete obj;
+    }
+    des.clear();
+}
+
 Object::Object(const string &name, Type *type) : name(name) {
     objs.insert({this, type});
     objmap.insert({name, this});
@@ -70,7 +81,7 @@ Object::Object(const string &name, Type *type) : name(name) {
 
 Object::~Object() {
     // calling a virtual function in destructor does not invoke the derived class function
-    OnDestroy();
+    // OnDestroy();
 
     objs.erase(this);
     objmap.erase(name);

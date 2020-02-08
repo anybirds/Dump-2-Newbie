@@ -32,6 +32,9 @@ namespace Engine {
         static std::unordered_map<std::string, Object *> objmap;
         static std::unordered_set<Object *> des;
 
+    public:
+        static void Destruct();
+
     private:
         std::string name;
 

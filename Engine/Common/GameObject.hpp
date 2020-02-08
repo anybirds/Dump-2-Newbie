@@ -16,6 +16,8 @@ namespace Engine {
 
     SER_DECL(ENGINE_EXPORT, GameObject)
 
+    void ENGINE_EXPORT Destroy(GameObject *go);
+
     /*
     An atraction of a gameobject in the scene.
     Has components that can describe the gameobject behavior.
@@ -54,8 +56,6 @@ namespace Engine {
     T *GameObject::AddComponent() {
 
     }
-
-    void Destroy(GameObject *go);
 }
 
 typedef typename concat<TYPE_LIST, Engine::GameObject>::type TypeListGameObject;

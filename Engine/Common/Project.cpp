@@ -69,7 +69,7 @@ void Project::Save() {
     json js;
 
     for (Scene *scene : sceneset) {
-        js["Scene"].push_back({scene->GetName(), *scene});
+        js["Scene"][scene->GetName()] = *scene;
     }
 
     for (Resource *res : resset) {
