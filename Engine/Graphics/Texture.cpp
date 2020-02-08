@@ -2,8 +2,7 @@
 
 #include <SOIL/SOIL.h>
 
-#include <iostream>
-
+#include <Common/Debug.hpp>
 #include <Graphics/Texture.hpp>
 
 using namespace std;
@@ -25,9 +24,22 @@ void Texture::OnInit() {
     unsigned char *image = SOIL_load_image(path.c_str(), &width, &height, &channel, SOIL_LOAD_AUTO);
     if (!image) {
 #ifdef DEBUG
-        cout << '[' << __FUNCTION__ << ']' << " cannot load image file: " << texture_path << '\n';
+        cout << '[' << __FUNCTION__ << ']' << " cannot load image file: " << path << '\n';
 #endif
         throw exception();
+    }
+
+    GLenum format;
+    switch (channel) {
+    case 3:
+        format = GL_RGB;
+        break;
+    case 4:
+        format = GL_RGBA;
+        break;
+    default:
+        format = GL_RGB;
+        break;
     }
 
     glGenTextures(1, &id);
@@ -37,7 +49,7 @@ void Texture::OnInit() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, (GLint)format, width, height, 0, format, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
 
     Resource::OnInit();

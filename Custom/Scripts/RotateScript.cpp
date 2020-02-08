@@ -19,5 +19,5 @@ RotateScript::RotateScript(const string &name, Type *type) : Component(name, typ
 void RotateScript::OnUpdate() {
     float dt = Time::DeltaTime();
     Transform *transform = GetGameObject()->GetTransform();
-    transform->Rotate(vec3(0.0f, rate * dt, 0.0f));
+    transform->RotateAround(vec3(0.0f, 0.0f, 1.0f), rate * dt);
 }

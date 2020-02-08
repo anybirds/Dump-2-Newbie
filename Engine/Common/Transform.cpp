@@ -1,4 +1,5 @@
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
 #include <Common/GameObject.hpp>
@@ -45,7 +46,7 @@ void Transform::PropagateUpdate() {
 }
 
 void Transform::OnInit() {
-    localRotation = toQuat(eulerAngleZXY(radians(localEulerAngles.z), radians(localEulerAngles.x), radians(localEulerAngles.y)));
+    localRotation = toQuat(eulerAngleXYZ(radians(localEulerAngles.x), radians(localEulerAngles.y), radians(localEulerAngles.z)));
     localToWorldMatrix = GetLocalToWorldMatrix();
 }
 
@@ -83,6 +84,12 @@ void Transform::SetLocalPosition(const glm::vec3 &localPosition) {
     PropagateUpdate();
 }
 
+void Transform::SetLocalRotation(const glm::quat &localRotation) {
+    this->localEulerAngles = eulerAngles(localRotation);
+    this->localRotation = localRotation;
+    PropagateUpdate();
+}
+
 void Transform::SetLocalScale(const glm::vec3 &localScale) {
     this->localScale = localScale;
     PropagateUpdate();
@@ -90,7 +97,7 @@ void Transform::SetLocalScale(const glm::vec3 &localScale) {
 
 void Transform::SetLocalEulerAngles(const glm::vec3 &localEulerAngles) {
     this->localEulerAngles = localEulerAngles;
-    this->localRotation = toQuat(eulerAngleZXY(radians(localEulerAngles.z), radians(localEulerAngles.x), radians(localEulerAngles.y)));
+    this->localRotation = toQuat(eulerAngleXYZ(radians(localEulerAngles.x), radians(localEulerAngles.y), radians(localEulerAngles.z)));
     PropagateUpdate();
 }
 
@@ -106,5 +113,9 @@ void Transform::SetScale(const glm::vec3 &scale) {
 
 void Transform::Rotate(const glm::vec3 &eulerAngles) {
     SetLocalEulerAngles(localEulerAngles + eulerAngles);
+}
+
+void Transform::RotateAround(const glm::vec3 &axis, float angle) {
+    SetLocalRotation(rotate(GetLocalRotation(), radians(angle), axis));
 }
 

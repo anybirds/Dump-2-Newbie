@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 
     Window window("App");
     Project::Load("C:\\Users\\river\\Documents\\Newbie\\Custom\\custom_project.json");
-    Scene::Load("bunny_scene");
+    Scene::Load("girl_scene");
 
     Script::Start();
 

@@ -50,7 +50,7 @@ namespace Engine {
         glm::vec3 GetScale() const;
 
         void SetLocalPosition(const glm::vec3 &localPosition);
-        // void SetLocalRotation(const glm::quat &localRotation);
+        void SetLocalRotation(const glm::quat &localRotation);
         void SetLocalScale(const glm::vec3 &localScale);
         void SetLocalEulerAngles(const glm::vec3 &localEulerAngles);
         void SetPosition(const glm::vec3 &position);
@@ -58,6 +58,7 @@ namespace Engine {
         void SetScale(const glm::vec3 &scale);
 
         void Rotate(const glm::vec3 &eulerAngles);
+        void RotateAround(const glm::vec3 &axis, float angle);
 
         friend void Destroy(Transform *);
 	};
