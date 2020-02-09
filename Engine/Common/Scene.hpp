@@ -43,6 +43,8 @@ namespace Engine {
         static bool Load(const std::string &name);
         static void Save();
 
+        static Scene *GetCurrentScene() { return curr; }
+
     private:
         std::unordered_set<SceneSetting *> settingset;
         std::unordered_set<GameObject *> goset;
@@ -55,6 +57,8 @@ namespace Engine {
         friend class SceneSetting;
         friend class GameObject;
         friend class Component;
+
+        friend class HierarchyWidget;
     };
 }
 

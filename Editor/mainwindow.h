@@ -17,5 +17,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+signals:
+    void ProjectOpen();
+
+private slots:
+    void on_actionNew_Project_triggered();
+    void on_actionOpen_Project_triggered();
+    void on_actionSave_Project_triggered();
 };
 #endif // MAINWINDOW_H

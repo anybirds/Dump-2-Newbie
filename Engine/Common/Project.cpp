@@ -30,36 +30,40 @@ bool Project::Load(const string &path) {
     if (pfs.fail()) {
         return false;
     }
-    json js;
-    pfs >> js;
+    try {
+        json js;
+        pfs >> js;
 
 #ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " read project file: " << path << " done ..." << endl;
+        cout << '[' << __FUNCTION__ << ']' << " read project file: " << path << " done ..." << endl;
 #endif
 
-    // pre-deserialization
-    for (json::iterator i = js.begin(); i != js.end(); i++) {
-        Type *type = Type::Find(i.key());
-        for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
-            type->Instantiate(j.key());
+        // pre-deserialization
+        for (json::iterator i = js.begin(); i != js.end(); i++) {
+            Type *type = Type::Find(i.key());
+            for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
+                type->Instantiate(j.key());
+            }
         }
-    }
 
 #ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " pre-deserialization done ..." << endl;
+        cout << '[' << __FUNCTION__ << ']' << " pre-deserialization done ..." << endl;
 #endif
 
-    // deserialization
-    for (json::iterator i = js.begin(); i != js.end(); i++) {
-        Type *type = Type::Find(i.key());
-        for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
-            type->Deserialize(j.value(), Find<Object>(j.key()));
+        // deserialization
+        for (json::iterator i = js.begin(); i != js.end(); i++) {
+            Type *type = Type::Find(i.key());
+            for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
+                type->Deserialize(j.value(), Find<Object>(j.key()));
+            }
         }
-    }
 
 #ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " deserialization done ..." << endl;
+        cout << '[' << __FUNCTION__ << ']' << " deserialization done ..." << endl;
 #endif
+    } catch(...) {
+        return false;
+    }
 
     return true;
 }

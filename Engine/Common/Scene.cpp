@@ -47,16 +47,6 @@ Scene::Scene(const std::string &name, Type *type) : Object(name, type) {
         exit(1);
     }
 
-    // render settings
-    glEnable(GL_DEPTH_TEST);
-
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_TEXTURE_2D);
-
     Project::sceneset.insert(this);
 }
 
@@ -103,61 +93,60 @@ bool Scene::Load(const string &name) {
         return false;
     }
 
-    json js;
-    sfs >> js;
-
-#ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " read scene file: " << scene->GetPath() << " done ..." << endl;
-#endif
-
-    // pre-deserialization
-    for (json::iterator i = js.begin(); i != js.end(); i++) {
-        Type *type = Type::Find(i.key());
-        for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
-            type->Instantiate(j.key());
-        }
-    }
-
-#ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " pre-deserialization done ..." << endl;
-#endif
-
-    // deserialization
-    // mark all the resources used by makring shouldLoad to true
-    for (Resource *res : Project::resset) {
-        res->shouldLoad = false;
-    }
-
-    Resource::sceneLoad = true;
-    for (json::iterator i = js.begin(); i != js.end(); i++) {
-        Type *type = Type::Find(i.key());
-        for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
-            type->Deserialize(j.value(), Find<Object>(j.key()));
-        }
-    }
-    Resource::sceneLoad = false;
-
-#ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " deserialization done ..." << endl;
-#endif
-
-    // post-deserialization
     try {
-        for (Resource *res : Project::resset) {
-            if (!res->loaded && res->shouldLoad) {
-                // mark shouldLoad to true recursively (there should be no cyclic dependencies between resources)
-                res->OnInit();
-            }
-        }
-        // remove all resources that are not in use (including Model, Shader ...)
-        for (Resource *res : Project::resset) {
-            if (res->loaded && !res->shouldLoad) {
-                res->OnDestroy();
+        json js;
+        sfs >> js;
+
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " read scene file: " << scene->GetPath() << " done ..." << endl;
+#endif
+
+        // pre-deserialization
+        for (json::iterator i = js.begin(); i != js.end(); i++) {
+            Type *type = Type::Find(i.key());
+            for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
+                type->Instantiate(j.key());
             }
         }
 
 #ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " loading resource done ..." << endl;
+        cout << '[' << __FUNCTION__ << ']' << " pre-deserialization done ..." << endl;
+#endif
+
+        // deserialization
+        // mark all the resources used by makring shouldLoad to true
+        for (Resource *res : Project::resset) {
+            res->shouldLoad = false;
+        }
+
+        Resource::sceneLoad = true;
+        for (json::iterator i = js.begin(); i != js.end(); i++) {
+            Type *type = Type::Find(i.key());
+            for (json::iterator j = i.value().begin(); j != i.value().end(); j++) {
+                type->Deserialize(j.value(), Find<Object>(j.key()));
+            }
+        }
+        Resource::sceneLoad = false;
+
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " deserialization done ..." << endl;
+#endif
+
+         for (Resource *res : Project::resset) {
+             if (!res->loaded && res->shouldLoad) {
+                 // mark shouldLoad to true recursively (there should be no cyclic dependencies between resources)
+                 res->OnInit();
+             }
+         }
+         // remove all resources that are not in use (including Model, Shader ...)
+         for (Resource *res : Project::resset) {
+             if (res->loaded && !res->shouldLoad) {
+                 res->OnDestroy();
+             }
+         }
+
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " loading resource done ..." << endl;
 #endif
 
         for (Component *comp : scene->compset) {
@@ -169,14 +158,15 @@ bool Scene::Load(const string &name) {
         for (SceneSetting *setting : scene->settingset) {
             setting->OnInit();
         }
-    } catch(...) {
+
+#ifdef DEBUG
+        cout << '[' << __FUNCTION__ << ']' << " post-deserialization done ..." << endl;
+#endif
+    } catch (...) {
         curr = prev;
         return false;
     }
 
-#ifdef DEBUG
-    cout << '[' << __FUNCTION__ << ']' << " post-deserialization done ..." << endl;
-#endif
 
     return true;
 }

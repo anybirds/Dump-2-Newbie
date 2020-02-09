@@ -1,7 +1,7 @@
-#include <Windows.h>
-
 #include <Engine.hpp>
 #include <Window.hpp>
+
+#include <Windows.h>
 
 using namespace std;
 using namespace glm;

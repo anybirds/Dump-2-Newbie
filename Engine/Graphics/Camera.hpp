@@ -34,8 +34,14 @@ namespace Engine {
         float fovy;
         float width;
         float height;
-        float close;
-        float distant;
+#if defined(near)
+#undef near
+#endif
+#if defined(far)
+#undef far
+#endif
+        float near;
+        float far;
         float left;
         float right;
         float bottom;
@@ -57,8 +63,8 @@ namespace Engine {
         GET(float, Fovy, fovy)
         GET(float, Width, width)
         GET(float, Height, height)
-        GET(float, Near, close)
-        GET(float, Far, distant)
+        GET(float, Near, near)
+        GET(float, Far, far)
         GET(float, Left, left)
         GET(float, Right, right)
         GET(float, Top, top)

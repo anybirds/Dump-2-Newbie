@@ -1,18 +1,16 @@
 #ifndef SCENEWIDGET_H
 #define SCENEWIDGET_H
 
-#include <QOpenGLWidget>
+#include <QWidget>
 
-class SceneWidget : public QOpenGLWidget
+class SceneWidget : public QWidget
 {
+    Q_OBJECT
 public:
-    SceneWidget(QWidget *parent = nullptr);
-    ~SceneWidget();
+    explicit SceneWidget(QWidget *parent = nullptr);
 
-protected:
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int w, int h) override;
+private slots:
+    void OnSceneOpen();
 };
 
 #endif // SCENEWIDGET_H

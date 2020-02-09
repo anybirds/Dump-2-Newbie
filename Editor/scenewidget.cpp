@@ -1,24 +1,13 @@
 #include "scenewidget.h"
 
-SceneWidget::SceneWidget(QWidget *parent) : QOpenGLWidget(parent)
+#include "viewportwidget.h"
+
+SceneWidget::SceneWidget(QWidget *parent) : QWidget(parent)
 {
 
 }
 
-SceneWidget::~SceneWidget() {
-
+void SceneWidget::OnSceneOpen() {
+    ViewportWidget *viewportWidget = findChild<ViewportWidget *>();
+    viewportWidget->update();
 }
-
-void SceneWidget::initializeGL() {
-
-}
-
-void SceneWidget::paintGL() {
-
-}
-
-void SceneWidget::resizeGL(int w, int h) {
-
-}
-
-

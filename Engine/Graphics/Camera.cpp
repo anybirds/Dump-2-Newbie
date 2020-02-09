@@ -20,8 +20,8 @@ namespace Engine {
     MEMBER_SER | MEMBER_SHOW, float, fovy,
     MEMBER_SER | MEMBER_SHOW, float, width,
     MEMBER_SER | MEMBER_SHOW, float, height,
-    MEMBER_SER | MEMBER_SHOW, float, close,
-    MEMBER_SER | MEMBER_SHOW, float, distant,
+    MEMBER_SER | MEMBER_SHOW, float, near,
+    MEMBER_SER | MEMBER_SHOW, float, far,
     MEMBER_SER | MEMBER_SHOW, float, left,
     MEMBER_SER | MEMBER_SHOW, float, right,
     MEMBER_SER | MEMBER_SHOW, float, bottom,
@@ -49,9 +49,9 @@ Camera::~Camera() {
 
 void Camera::ComputeNormalization() {
     if (orthographic) {
-        normalization = ortho(left, right, bottom, top, close, distant);
+        normalization = ortho(left, right, bottom, top, near, far);
     } else {
-        normalization = perspective(radians(fovy), width / height, close, distant);
+        normalization = perspective(radians(fovy), width / height, near, far);
     }
 }
 
@@ -69,12 +69,12 @@ void Camera::SetWidth(float width) {
 }
 
 void Camera::SetNear(float near) {
-    this->close = near;
+    this->near = near;
     ComputeNormalization();
 }
 
 void Camera::SetFar(float far) {
-    this->distant = far;
+    this->far = far;
     ComputeNormalization();
 }
 
@@ -100,6 +100,21 @@ void Camera::SetBottom(float bottom) {
 void Camera::Render() {
     glClearColor((GLclampf) 0.0f, (GLclampf) 0.0f, (GLclampf) 0.0f, (GLclampf) 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // render setting
+    bool depth_test_enabled = glIsEnabled(GL_DEPTH_TEST);
+    GLint depth_test_mode;
+    glGetIntegerv(GL_DEPTH_FUNC, &depth_test_mode);
+
+    bool cull_face_enabled = glIsEnabled(GL_CULL_FACE);
+    GLint cull_face_mode;
+    glGetIntegerv(GL_CULL_FACE_MODE, &cull_face_mode);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     for (Renderer *rend : rendset) {
         Mesh *mesh = rend->GetMesh();
@@ -132,5 +147,20 @@ void Camera::Render() {
             glDrawElements(GL_TRIANGLES, mesh->icnt, GL_UNSIGNED_INT, 0);
         }
     }
+
+    // render setting
+    if (depth_test_enabled) {
+        glEnable(GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_DEPTH_TEST);
+    }
+    glDepthFunc(depth_test_mode);
+
+    if (cull_face_enabled) {
+        glEnable(GL_CULL_FACE);
+    } else {
+        glDisable(GL_CULL_FACE);
+    }
+    glCullFace(cull_face_mode);
 }
 

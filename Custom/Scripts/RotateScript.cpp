@@ -26,5 +26,4 @@ void RotateScript::OnUpdate() {
     }
     Transform *transform = GetGameObject()->GetTransform();
     transform->RotateAround(vec3(0.0f, 0.0f, 1.0f), rate * dt);
-    vec3 euler = transform->GetLocalEulerAngles();
 }

@@ -2,12 +2,12 @@
     "Camera": {
         "eye_camera": {
             "bottom": 0.0,
-            "close": 0.10000000149011612,
-            "distant": 1000.0,
+            "far": 1000.0,
             "fovy": 60.0,
             "gameObject": "eye",
             "height": 1080.0,
             "left": 0.0,
+            "near": 0.10000000149011612,
             "orthographic": false,
             "right": 0.0,
             "top": 0.0,
@@ -83,9 +83,9 @@
             "children": [],
             "gameObject": "girl",
             "localEulerAngles": [
-                89.9986343383789,
-                -89.40357208251953,
-                -179.99862670898438
+                89.99996948242188,
+                0.8623694777488708,
+                -180.0
             ],
             "localPosition": [
                 2.0,
